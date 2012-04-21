@@ -50,3 +50,7 @@ c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Syst
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\obj\Debug\ResolveAssemblyReference.cache
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\obj\Debug\ATP.Web.dll
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\obj\Debug\ATP.Web.pdb
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Castle.Core.dll
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Castle.Windsor.dll
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Castle.Core.xml
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Castle.Windsor.xml

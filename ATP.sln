@@ -3,6 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.Web", "ATP.Web\ATP.Web.csproj", "{F09E4FFE-2693-4973-B4A7-21DD8BF374F0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.Domain", "ATP.Domain\ATP.Domain.csproj", "{CB2A790B-1230-4201-8B57-4D7B91374D2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{246869CB-DF68-40E7-B968-E02DF27CFC92}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{22D39866-4270-40D9-9768-A2E88DCCA2BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.Domain.Tests", "ATP.Domain.Tests\ATP.Domain.Tests.csproj", "{154A445F-B096-4B51-B1DD-F7B1F16617E1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,8 +21,20 @@ Global
 		{F09E4FFE-2693-4973-B4A7-21DD8BF374F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F09E4FFE-2693-4973-B4A7-21DD8BF374F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F09E4FFE-2693-4973-B4A7-21DD8BF374F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB2A790B-1230-4201-8B57-4D7B91374D2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB2A790B-1230-4201-8B57-4D7B91374D2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB2A790B-1230-4201-8B57-4D7B91374D2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB2A790B-1230-4201-8B57-4D7B91374D2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{154A445F-B096-4B51-B1DD-F7B1F16617E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{154A445F-B096-4B51-B1DD-F7B1F16617E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{154A445F-B096-4B51-B1DD-F7B1F16617E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{154A445F-B096-4B51-B1DD-F7B1F16617E1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{22D39866-4270-40D9-9768-A2E88DCCA2BE} = {246869CB-DF68-40E7-B968-E02DF27CFC92}
+		{154A445F-B096-4B51-B1DD-F7B1F16617E1} = {22D39866-4270-40D9-9768-A2E88DCCA2BE}
 	EndGlobalSection
 EndGlobal

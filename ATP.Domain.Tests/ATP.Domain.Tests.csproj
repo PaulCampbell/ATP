@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{CB2A790B-1230-4201-8B57-4D7B91374D2E}</ProjectGuid>
+    <ProjectGuid>{154A445F-B096-4B51-B1DD-F7B1F16617E1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ATP.Domain</RootNamespace>
-    <AssemblyName>ATP.Domain</AssemblyName>
+    <RootNamespace>ATP.Domain.Tests</RootNamespace>
+    <AssemblyName>ATP.Domain.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,11 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DateProvider.cs" />
-    <Compile Include="Models\Entity.cs" />
-    <Compile Include="PasswordHasher.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserFixture.cs" />
+    <Compile Include="Models\EntityFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ATP.Domain\ATP.Domain.csproj">
+      <Project>{CB2A790B-1230-4201-8B57-4D7B91374D2E}</Project>
+      <Name>ATP.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
