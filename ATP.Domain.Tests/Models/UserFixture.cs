@@ -16,13 +16,5 @@ namespace ATP.Domain.Tests
             Assert.IsTrue(u is Entity);
         }
 
-        [Test]
-        public void full_name_property_is_sensible()
-        {
-            var u = new User();
-            u.FirstName = "Jimmy";
-            u.LastName = "Nail";
-            Assert.AreEqual("Jimmy Nail", u.FullName);
-        }
     }
 }

@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{22D39866-4
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.Domain.Tests", "ATP.Domain.Tests\ATP.Domain.Tests.csproj", "{154A445F-B096-4B51-B1DD-F7B1F16617E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.Web.Tests", "ATP.Web.Tests\ATP.Web.Tests.csproj", "{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{154A445F-B096-4B51-B1DD-F7B1F16617E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{154A445F-B096-4B51-B1DD-F7B1F16617E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{154A445F-B096-4B51-B1DD-F7B1F16617E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -36,5 +42,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{22D39866-4270-40D9-9768-A2E88DCCA2BE} = {246869CB-DF68-40E7-B968-E02DF27CFC92}
 		{154A445F-B096-4B51-B1DD-F7B1F16617E1} = {22D39866-4270-40D9-9768-A2E88DCCA2BE}
+		{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB} = {22D39866-4270-40D9-9768-A2E88DCCA2BE}
 	EndGlobalSection
 EndGlobal

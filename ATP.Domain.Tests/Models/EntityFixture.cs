@@ -9,6 +9,6 @@ namespace ATP.Domain.Tests.Models
 {
     public  class EntityFixture
     {
-      
+        public int Id { get; set; } 
     }
 }

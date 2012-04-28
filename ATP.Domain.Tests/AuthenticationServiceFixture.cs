@@ -1,5 +1,4 @@
 ﻿using System;
-using NLog;
 using System.Linq;
 using NUnit.Framework;
 using NSubstitute;
@@ -95,10 +94,10 @@ namespace ATP.Domain.Tests
         [Test]
         public void correct_password_and_email_can_log_in()
         {
-           
-            _passwordHasher.VerifyHash("goodpassword", "SomeHash").ReturnsForAnyArgs(true);
 
-            var result = _authService.Login("someAddress", "SomePassword");
+            _passwordHasher.VerifyHash("goodpassword", "hashedpassword").ReturnsForAnyArgs(true);
+
+            var result = _authService.Login("test@decoratedworld.co.uk", "hashedpassword");
 
             Assert.AreEqual(LoginResult.successful, result);
         }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 
@@ -61,32 +59,24 @@ namespace ATP.Domain
 
         public bool VerifyHash(string plainText, string hashValue)
         {
-            // Convert base64-encoded hash value into a byte array.
             byte[] hashWithSaltBytes = Convert.FromBase64String(hashValue);
 
-            // We must know size of hash (without salt).
             int hashSizeInBits, hashSizeInBytes;
 
             hashSizeInBits = 160;
             hashSizeInBytes = hashSizeInBits / 8;
 
-            // Make sure that the specified hash value is long enough.
             if (hashWithSaltBytes.Length < hashSizeInBytes)
                 return false;
 
-            // Allocate array to hold original salt bytes retrieved from hash.
             byte[] saltBytes = new byte[hashWithSaltBytes.Length -
                                         hashSizeInBytes];
 
-            // Copy salt from the end of the hash to the new array.
             for (int i = 0; i < saltBytes.Length; i++)
                 saltBytes[i] = hashWithSaltBytes[hashSizeInBytes + i];
 
-            // Compute a new hash string.
             string expectedHashString = ComputeHash(plainText, saltBytes);
 
-            // If the computed hash matches the specified hash,
-            // the plain text value must be correct.
             return (hashValue == expectedHashString);
         }
     }

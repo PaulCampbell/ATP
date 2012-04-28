@@ -68,14 +68,12 @@ namespace ATP.Domain
                 int maxSaltSize = 8;
 
                 // Generate a random number for the size of the salt.
-                Random random = new Random();
+                var random = new Random();
                 int saltSize = random.Next(minSaltSize, maxSaltSize);
 
-                // Allocate a byte array, which will hold the salt.
                 saltBytes = new byte[saltSize];
 
-                // Initialize a random number generator.
-                RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider();
+                var rng = new RNGCryptoServiceProvider();
 
                 // Fill the salt with cryptographically strong byte values.
                 rng.GetNonZeroBytes(saltBytes);

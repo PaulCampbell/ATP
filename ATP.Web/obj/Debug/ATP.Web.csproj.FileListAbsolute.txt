@@ -84,3 +84,9 @@ C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Rave
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Munin.xml
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Storage.Esent.pdb
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Storage.Managed.pdb
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\ATP.Domain.dll
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\CuttingEdge.Conditions.dll
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\ATP.Domain.pdb
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\CuttingEdge.Conditions.xml
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\AutoMapper.dll
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\AutoMapper.xml

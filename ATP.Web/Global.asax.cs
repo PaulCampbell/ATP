@@ -1,37 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Dispatcher;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using ATP.Web.Bootstrapper;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
+using Castle.Windsor.Installer;
 using Raven.Client.Document;
 using Raven.Client;
+using Raven.Client.Indexes;
 
 namespace ATP.Web
 {
 
     public class WebApiApplication : System.Web.HttpApplication
     {
-        private const string RavenSessionKey = "RavenMVC.ATPSession";
-        private static DocumentStore _documentStore;
-
-        public WebApiApplication()
-        {
-            //Create a DocumentSession on BeginRequest  
-            //create a document session for every unit of work
-            BeginRequest += (sender, args) =>
-                HttpContext.Current.Items[RavenSessionKey] = _documentStore.OpenSession();
-            
-            //Destroy the DocumentSession on EndRequest
-            EndRequest += (o, eventArgs) =>
-            {
-            var disposable = HttpContext.Current.Items[RavenSessionKey] as IDisposable;
-            if (disposable != null)
-            disposable.Dispose();
-            };
-        }
+       
  
 
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
@@ -48,32 +38,43 @@ namespace ATP.Web
                 routeTemplate: "{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
-
-            routes.MapRoute(
-                name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            );
         }
 
         protected void Application_Start()
         {
-            _documentStore = new DocumentStore { Url = "http://localhost:8080/" };
-            _documentStore.Initialize();
-
             AreaRegistration.RegisterAllAreas();
-
-            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory());
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
 
-            BundleTable.Bundles.RegisterTemplateBundles();
+            InitialiseContainer();
+            InitialiseControllerFactory();
+
+            AutoMapperConfiguration.Init();
         }
 
-        public static IDocumentSession CurrentSession
+        protected void InitialiseContainer()
         {
-            get { return (IDocumentSession)HttpContext.Current.Items[RavenSessionKey]; }
+            if (_container == null)
+            {
+                _container = new WindsorContainer()
+                    .Install(FromAssembly.InDirectory(new AssemblyFilter(HttpRuntime.BinDirectory, "ATP.*.dll")));
+            }
         }
+
+        protected void InitialiseControllerFactory()
+        {
+            var configuration = GlobalConfiguration.Configuration;
+            configuration.ServiceResolver.SetService(
+                typeof(IHttpControllerFactory),
+                new WindsorControllerFactory(configuration, Container.Kernel));
+        }
+
+        static IWindsorContainer _container;
+        public IWindsorContainer Container
+        {
+            get { return _container; }
+        }
+   
     }
 }
