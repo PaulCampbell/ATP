@@ -45,15 +45,24 @@ namespace ATP.Web.Controllers
         {
             var domainUser = _automapper.Map<User, Domain.Models.User>(user);
             var passwordResult = _authenticationService.UpdatePassword(domainUser, user.Password);
+            var responseErrors = new List<KeyValuePair<string, string>>();
             switch(passwordResult)
             {
                 case UpdatePasswordResult.unknown :
                 case UpdatePasswordResult.reservedWord:
                 case UpdatePasswordResult.notLongEnough:
-                    return new HttpResponseMessage<User>(user)
-                    {
-                        StatusCode = HttpStatusCode.BadRequest
-                    };
+                    responseErrors.Add(new KeyValuePair<string, string>("Password", "Invalid Password"));
+                    break;
+            }
+
+            responseErrors.AddRange(ValidateUser(user));
+
+            if (responseErrors.Any())
+            {
+                return new HttpResponseMessage<List<KeyValuePair<string, string>>>(responseErrors)
+                           {
+                               StatusCode = HttpStatusCode.BadRequest
+                           };
             }
 
             DocumentSession.Store(domainUser);
@@ -69,5 +78,15 @@ namespace ATP.Web.Controllers
         {
         }
 
+
+        private List<KeyValuePair<string, string>> ValidateUser(User user)
+        {
+            var result = new List<KeyValuePair<string, string>>();
+            if(string.IsNullOrEmpty(user.Email))
+            {
+                result.Add(new KeyValuePair<string, string>("Email", "Email address required"));
+            }
+            return result;
+        }
     }
 }

@@ -89,7 +89,19 @@ namespace ATP.Web.Tests.Controllers
             Assert.AreEqual(user.FirstName, storedUser.FirstName);
         }
 
-         [Test]
+        [Test]
+        public void post_user_no_emailAddress_returns_400()
+        {
+            var user = GenerateWebModelUser();
+            user.Email = string.Empty;
+            _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.successful);
+
+            var response = _usersController.Post(user);
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Test]
         public void post_valid_returns_201()
         {
             
