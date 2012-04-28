@@ -6,14 +6,34 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Raven.Client.Document;
+using Raven.Client;
 
 namespace ATP.Web
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
-    // visit http://go.microsoft.com/?LinkId=9394801
 
     public class WebApiApplication : System.Web.HttpApplication
     {
+        private const string RavenSessionKey = "RavenMVC.ATPSession";
+        private static DocumentStore _documentStore;
+
+        public WebApiApplication()
+        {
+            //Create a DocumentSession on BeginRequest  
+            //create a document session for every unit of work
+            BeginRequest += (sender, args) =>
+                HttpContext.Current.Items[RavenSessionKey] = _documentStore.OpenSession();
+            
+            //Destroy the DocumentSession on EndRequest
+            EndRequest += (o, eventArgs) =>
+            {
+            var disposable = HttpContext.Current.Items[RavenSessionKey] as IDisposable;
+            if (disposable != null)
+            disposable.Dispose();
+            };
+        }
+ 
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
@@ -38,6 +58,9 @@ namespace ATP.Web
 
         protected void Application_Start()
         {
+            _documentStore = new DocumentStore { Url = "http://localhost:8080/" };
+            _documentStore.Initialize();
+
             AreaRegistration.RegisterAllAreas();
 
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory());
@@ -46,6 +69,11 @@ namespace ATP.Web
             RegisterRoutes(RouteTable.Routes);
 
             BundleTable.Bundles.RegisterTemplateBundles();
+        }
+
+        public static IDocumentSession CurrentSession
+        {
+            get { return (IDocumentSession)HttpContext.Current.Items[RavenSessionKey]; }
         }
     }
 }
