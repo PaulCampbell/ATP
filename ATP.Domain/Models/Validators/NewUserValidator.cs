@@ -13,7 +13,17 @@ namespace ATP.Domain.Models.Validators
 
         public override void Validate()
         {
-            
+            if (string.IsNullOrEmpty(Entity.Email))
+            {
+                Errors.Add(
+                    new ValidationError
+                    {
+                        Field = "Email",
+                        Message = "Email address required",
+                        Code = ValidationError.ErrorCode.Missing,
+                        Resource = "/Users/" + Entity.Id
+                    });
+            }
         }
     }
 }

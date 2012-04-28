@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationServiceFixture.cs" />
+    <Compile Include="DataGenerator.cs" />
     <Compile Include="Models\UserFixture.cs" />
     <Compile Include="Models\EntityFixture.cs" />
     <Compile Include="Models\Validator\NewUserValidatorFixture.cs" />

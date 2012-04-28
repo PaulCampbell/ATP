@@ -108,6 +108,7 @@
   <ItemGroup>
     <Compile Include="Bootstrapper\AutoMapperConfigerationFixture.cs" />
     <Compile Include="Controllers\UserControllerTests.cs" />
+    <Compile Include="DataGenerator.cs" />
     <Compile Include="Models\UserFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RavenSessionTest.cs" />

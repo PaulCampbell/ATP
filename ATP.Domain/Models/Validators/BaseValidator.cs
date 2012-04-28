@@ -13,13 +13,21 @@ namespace ATP.Domain.Models.Validators
 
     public abstract class BaseValidator<T> : IValidator
     {
-        private T _entity;
+        protected T Entity;
 
         protected BaseValidator(T entity)
         {
-            _entity = entity;
+            Entity = entity;
+            Errors = new List<ValidationError>();
         }
 
         public abstract void Validate();
+
+        public bool IsValid()
+        {
+            return !Errors.Any();
+        }
+
+        public List<ValidationError> Errors { get; set; }
     }
 }

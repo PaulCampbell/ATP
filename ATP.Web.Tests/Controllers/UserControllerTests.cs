@@ -59,8 +59,8 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void post_valid_user_persists_new_document()
         {
-            var user = GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(GenerateDomainModelUser());
+            var user = DataGenerator.GenerateWebModelUser();
+            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.successful);
 
             _usersController.Post(user);
@@ -72,7 +72,7 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void post_user_no_emailAddress_returns_400()
         {
-            var user = GenerateWebModelUser();
+            var user = DataGenerator.GenerateWebModelUser();
             user.Email = string.Empty;
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.successful);
 
@@ -84,8 +84,8 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void post_valid_returns_201()
         {
-            var user = GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(GenerateDomainModelUser());
+            var user = DataGenerator.GenerateWebModelUser();
+            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.successful);
 
             var response = _usersController.Post(user);
@@ -96,8 +96,8 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void post_valid_calls_update_password()
         {
-            var user = GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(GenerateDomainModelUser());
+            var user = DataGenerator.GenerateWebModelUser();
+            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _usersController.Post(user);
 
             _authenticationService.Received().UpdatePassword(Arg.Any<User>(), user.Password);
@@ -106,8 +106,8 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void post_invalid_returns_400()
         {
-            var user = GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(GenerateDomainModelUser());
+            var user = DataGenerator.GenerateWebModelUser();
+            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.notLongEnough);
 
             var response = _usersController.Post(user);
@@ -119,8 +119,8 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void post_invalid_returns_UnprocessablEntity()
         {
-            var user = GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(GenerateDomainModelUser());
+            var user = DataGenerator.GenerateWebModelUser();
+            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.notLongEnough);
 
             var response = _usersController.Post(user);
@@ -134,28 +134,6 @@ namespace ATP.Web.Tests.Controllers
             
         }
 
-        private Web.Models.User GenerateWebModelUser()
-        {
-            return new Web.Models.User
-            {
-                Email = "abc@d.org",
-                FirstName = "Bill",
-                LastName = "Grey",
-                Password = "password",
-                MobileNumber = "0777777777"
-            };
-        }
-
-        private Domain.Models.User GenerateDomainModelUser()
-        {
-            return new Domain.Models.User
-            {
-                Email = "abc@d.org",
-                FirstName = "Bill",
-                LastName = "Grey",
-                MobileNumber = "0777777777"
-            };
-        }
-
+        
     }
 }

@@ -580,6 +580,11 @@
             and were able to handle purely from the cache
             </summary>
         </member>
+        <member name="P:Raven.Client.Connection.HttpJsonRequestFactory.DisableRequestCompression">
+            <summary>
+            Determine whether to use compression or not 
+            </summary>
+        </member>
         <member name="P:Raven.Client.Connection.HttpJsonRequestFactory.AggressiveCacheDuration">
             <summary>
              The aggressive cache duration
@@ -1147,8 +1152,6 @@
             <summary>
             Escapes Lucene operators and quotes phrases
             </summary>
-            <param name="term"></param>
-            <param name="allowWildcards"></param>
             <returns>escaped term</returns>
             <remarks>
             http://lucene.apache.org/java/2_4_0/queryparsersyntax.html#Escaping%20Special%20Characters
@@ -4219,6 +4222,12 @@
             </summary>
             <value>The original metadata.</value>
         </member>
+        <member name="P:Raven.Client.Document.InMemoryDocumentSessionOperations.DocumentMetadata.ForceConcurrencyCheck">
+            <summary>
+            A concurrency check will be forced on this entity 
+            even if UseOptimisticConcurrency is set to false
+            </summary>
+        </member>
         <member name="T:Raven.Client.Document.InMemoryDocumentSessionOperations.SaveChangesData">
             <summary>
             Data for a batch command to the server
@@ -4264,6 +4273,18 @@
             Stores the specified entity in the session. The entity will be saved when <see cref="M:Raven.Client.IAsyncDocumentSession.SaveChangesAsync"/> is called.
             </summary>
             <param name="entity">The entity.</param>
+        </member>
+        <member name="M:Raven.Client.IAsyncDocumentSession.Store(System.Object,System.Guid,System.String)">
+            <summary>
+            Stores the specified entity with the specified etag, under the specified id
+            </summary>
+        </member>
+        <member name="M:Raven.Client.IAsyncDocumentSession.Store(System.Object,System.String)">
+            <summary>
+            Stores the specified dynamic entity, under the specified id
+            </summary>
+            <param name="entity">The entity.</param>
+            <param name="id">The id to store this entity under. If other entity exists with the same id it will be overridden.</param>
         </member>
         <member name="M:Raven.Client.IAsyncDocumentSession.Delete``1(``0)">
             <summary>
@@ -6792,6 +6813,11 @@
             </summary>
             <value>The conflicted version ids.</value>
         </member>
+        <member name="P:Raven.Client.Exceptions.ConflictException.Etag">
+            <summary>
+            Gets or sets the conflicted document etag
+            </summary>
+        </member>
         <member name="T:Raven.Client.Exceptions.NonAuthoritativeInformationException">
             <summary>
             This exception is raised when a non authoritative information is encountered
@@ -6902,26 +6928,6 @@
             <param name="commands">The hook to the database commands.</param>
             <param name="overwrite">Should the index be overwritten if it already exists.</param>
             <returns></returns>
-        </member>
-        <member name="T:Raven.Client.Extensions.ExceptionExtensions">
-            <summary>
-             Extension methods to handle common scenarios
-            </summary>
-        </member>
-        <member name="M:Raven.Client.Extensions.ExceptionExtensions.ExtractSingleInnerException(System.AggregateException)">
-            <summary>
-            Recursively examines the inner exceptions of an <see cref="T:System.AggregateException"/> and returns a single child exception.
-            </summary>
-            <returns>
-            If any of the aggregated exceptions have more than one inner exception, null is returned.
-            </returns>
-        </member>
-        <member name="M:Raven.Client.Extensions.ExceptionExtensions.SimplifyError(System.Exception)">
-            <summary>
-            Extracts a portion of an exception for a user friendly display
-            </summary>
-            <param name="e">The exception.</param>
-            <returns>The primary portion of the exception message.</returns>
         </member>
         <member name="T:Raven.Client.Extensions.MultiDatabase">
             <summary>
@@ -7991,6 +7997,7 @@
             Includes the specified path in the query, loading the document specified in that path
             </summary>
             <typeparam name="TResult">The type of the object that holds the id that you want to include.</typeparam>
+            <param name="source">The source for querying</param>
             <param name="path">The path, which is name of the property that holds the id of the object to include.</param>
             <returns></returns>
         </member>
@@ -8000,6 +8007,7 @@
             </summary>
             <typeparam name="TResult">The type of the object that holds the id that you want to include.</typeparam>
             <typeparam name="TInclude">The type of the object that you want to include.</typeparam>
+            <param name="source">The source for querying</param>
             <param name="path">The path, which is name of the property that holds the id of the object to include.</param>
             <returns></returns>
         </member>
@@ -8695,9 +8703,15 @@
             Apply an operation to all the shard session
             </summary>
         </member>
-        <member name="M:Raven.Client.Shard.IShardAccessStrategy.Apply``1(System.Collections.Generic.ICollection{Raven.Client.Connection.IDatabaseCommands},System.Func{Raven.Client.Connection.IDatabaseCommands,System.Int32,``0})">
+        <member name="M:Raven.Client.Shard.IShardAccessStrategy.Apply``1(System.Collections.Generic.IList{Raven.Client.Connection.IDatabaseCommands},Raven.Client.Shard.ShardRequestData,System.Func{Raven.Client.Connection.IDatabaseCommands,System.Int32,``0})">
             <summary>
             Applies the specified action to all shard sessions.
+            </summary>
+        </member>
+        <member name="E:Raven.Client.Shard.IShardAccessStrategy.OnError">
+            <summary>
+            Occurs on error, allows to handle an error one (or more) of the nodes
+            is failing
             </summary>
         </member>
         <member name="T:Raven.Client.Shard.ParallelShardAccessStrategy">
@@ -8705,7 +8719,7 @@
             Apply an operation to all the shard session in parallel
             </summary>
         </member>
-        <member name="M:Raven.Client.Shard.ParallelShardAccessStrategy.Apply``1(System.Collections.Generic.ICollection{Raven.Client.Connection.IDatabaseCommands},System.Func{Raven.Client.Connection.IDatabaseCommands,System.Int32,``0})">
+        <member name="M:Raven.Client.Shard.ParallelShardAccessStrategy.Apply``1(System.Collections.Generic.IList{Raven.Client.Connection.IDatabaseCommands},Raven.Client.Shard.ShardRequestData,System.Func{Raven.Client.Connection.IDatabaseCommands,System.Int32,``0})">
             <summary>
             Applies the specified action to all shard sessions in parallel
             </summary>
@@ -8715,7 +8729,7 @@
             Apply an operation to all the shard session in sequence
             </summary>
         </member>
-        <member name="M:Raven.Client.Shard.SequentialShardAccessStrategy.Apply``1(System.Collections.Generic.ICollection{Raven.Client.Connection.IDatabaseCommands},System.Func{Raven.Client.Connection.IDatabaseCommands,System.Int32,``0})">
+        <member name="M:Raven.Client.Shard.SequentialShardAccessStrategy.Apply``1(System.Collections.Generic.IList{Raven.Client.Connection.IDatabaseCommands},Raven.Client.Shard.ShardRequestData,System.Func{Raven.Client.Connection.IDatabaseCommands,System.Int32,``0})">
             <summary>
             Applies the specified action for all shard sessions.
             </summary>
@@ -8745,7 +8759,7 @@
             Information required to resolve the appropriate shard for an entity / entity and key
             </summary>
         </member>
-        <member name="P:Raven.Client.Shard.ShardRequestData.Key">
+        <member name="P:Raven.Client.Shard.ShardRequestData.Keys">
             <summary>
             Gets or sets the key.
             </summary>
@@ -8771,6 +8785,26 @@
             <summary>
             Merge the query results from all the shards into a single query results object by simply
             concatenating all of the values
+            </summary>
+        </member>
+        <member name="M:Raven.Client.Shard.ShardStrategy.ShardingOn``1">
+            <summary>
+            Instructs the sharding strategy to shard the <typeparamref name="TEntity"/> instances based on 
+            round robin strategy.
+            </summary>
+        </member>
+        <member name="M:Raven.Client.Shard.ShardStrategy.ShardingOn``1(System.Linq.Expressions.Expression{System.Func{``0,System.String}},System.Func{System.String,System.String})">
+            <summary>
+            Instructs the sharding strategy to shard the <typeparamref name="TEntity"/> instances based on 
+            the property specified in <paramref name="shardingProperty"/>, with an optional translation to
+            the shard id.
+            </summary>
+        </member>
+        <member name="M:Raven.Client.Shard.ShardStrategy.ShardingOn``2(System.Linq.Expressions.Expression{System.Func{``0,``1}},System.Func{``1,System.String},System.Func{System.String,System.String})">
+            <summary>
+            Instructs the sharding strategy to shard the <typeparamref name="TEntity"/> instances based on 
+            the property specified in <paramref name="shardingProperty"/>, with an optional translation of the value
+            from a non string representation to a string and from a string to the shard id.
             </summary>
         </member>
         <member name="P:Raven.Client.Shard.ShardStrategy.MergeQueryResults">
