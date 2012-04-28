@@ -5,17 +5,18 @@ using System.Net;
 using System.Text;
 using System.Web.Http;
 using ATP.Domain;
-using ATP.Domain.Models;
 using ATP.Web.Controllers;
 using ATP.Web.Infrastructure;
+using ATP.Web.Models;
 using NSubstitute;
 using NUnit.Framework;
 using Raven.Client.Embedded;
+using User = ATP.Domain.Models.User;
 
 namespace ATP.Web.Tests.Controllers
 {
     [TestFixture]
-    public class UserControllerTests
+    public class UserControllerTests : RavenSessionTest
     {
         private UsersController _usersController;
         private IAutomapper _automapper;
@@ -25,31 +26,10 @@ namespace ATP.Web.Tests.Controllers
         [SetUp]
         public void OneTimeSetup()
         {
-            var store = new EmbeddableDocumentStore
-            {
-                RunInMemory = true,
-                DataDirectory = "RavenData"
-            };
-
-            store.Initialize();
-
-            var session = store.OpenSession();
-
-            var user = new User()
-            {
-                Email = "test@decoratedworld.co.uk",
-                FirstName = "Lola",
-                LastName = "Dog",
-                HashedPassword = "hashedpassword"
-            };
-
-            session.Store(user);
-            session.SaveChanges();
-            _userId = user.Id;
-
+            _userId = Session.Query<User>().FirstOrDefault().Id;
             _automapper = Substitute.For<IAutomapper>();
             _authenticationService = Substitute.For<IAuthenticationService>();
-            _usersController = new UsersController(session, _automapper, _authenticationService);
+            _usersController = new UsersController(Session, _automapper, _authenticationService);
         }
 
         [Test]
@@ -104,7 +84,13 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void post_valid_returns_201()
         {
-            
+            var user = GenerateWebModelUser();
+            _automapper.Map<Web.Models.User, User>(user).Returns(GenerateDomainModelUser());
+            _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.successful);
+
+            var response = _usersController.Post(user);
+
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
         }
 
         [Test]
@@ -118,15 +104,27 @@ namespace ATP.Web.Tests.Controllers
         }
 
         [Test]
-        public void post_invalid_password_returns_400_with_reason()
+        public void post_invalid_returns_400()
         {
             var user = GenerateWebModelUser();
             _automapper.Map<Web.Models.User, User>(user).Returns(GenerateDomainModelUser());
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.notLongEnough);
 
             var response = _usersController.Post(user);
-
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+
+        }
+
+        [Ignore("Not sure about all this at the moment.")]
+        [Test]
+        public void post_invalid_returns_UnprocessablEntity()
+        {
+            var user = GenerateWebModelUser();
+            _automapper.Map<Web.Models.User, User>(user).Returns(GenerateDomainModelUser());
+            _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.notLongEnough);
+
+            var response = _usersController.Post(user);
+            Assert.IsTrue(response.Content is UnprocessableEntity);
 
         }
 

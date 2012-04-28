@@ -55,9 +55,14 @@
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="DateProvider.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\Validators\BaseValidator.cs" />
+    <Compile Include="Models\Validators\NewUserValidator.cs" />
     <Compile Include="PasswordHasher.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tasks\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

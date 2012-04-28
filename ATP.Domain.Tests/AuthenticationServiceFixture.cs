@@ -11,46 +11,25 @@ using Raven.Client.Listeners;
 namespace ATP.Domain.Tests
 {
     [TestFixture]
-    public class AuthenticationServiceFixture
+    public class AuthenticationServiceFixture : RavenSessionTest
     {
         private AuthenticationService _authService;
         private IPasswordHasher _passwordHasher;
-        private EmbeddableDocumentStore _store;
-        private IDocumentSession _session;
-
+      
         [SetUp]
         public void OneTimeSetup()
         {
             _passwordHasher = Substitute.For<IPasswordHasher>();
             _passwordHasher.ComputeHash("somestring", new byte[4]).ReturnsForAnyArgs("hashedPassword");
-            _store = new EmbeddableDocumentStore
-            {
-                RunInMemory = true,
-                DataDirectory = "RavenData"
-            };
 
-            _store.Initialize();
-     
-            _session = _store.OpenSession();
-
-            var user = new User
-            {
-                Email = "test@decoratedworld.co.uk",
-                FirstName = "Lola",
-                LastName = "Dog",
-                HashedPassword = "hashedpassword"
-            };
-
-            _session.Store(user);
-            _session.SaveChanges();
-            _authService = new AuthenticationService(_session, _passwordHasher);
+            _authService = new AuthenticationService(Session, _passwordHasher);
         }
 
         [TestFixtureTearDown]
         public void TearDown()
         {
-            _session.Dispose();
-            _store.Dispose();
+            Session.Dispose();
+            Store.Dispose();
         }
 
         [Test]
@@ -75,7 +54,7 @@ namespace ATP.Domain.Tests
         public void wrong_email_address_cannot_log_in()
         {
           
-            _authService = new AuthenticationService(_session, _passwordHasher);
+            _authService = new AuthenticationService(Session, _passwordHasher);
             var result = _authService.Login("invalidAddress", "SomePassword");
 
             Assert.AreEqual(LoginResult.unsuccessful, result);

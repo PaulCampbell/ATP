@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ATP.Domain;
 using ATP.Web.Infrastructure;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
@@ -14,9 +15,11 @@ namespace ATP.Web.Bootstrapper
     {
         public void Install(IWindsorContainer container, IConfigurationStore store)
         {
-            container.Register(
-                Component.For<IAutomapper>().Instance(new Automapper()).LifeStyle.PerWebRequest
-                );
+           container.Register( 
+                Component.For<IAutomapper>().ImplementedBy<Automapper>(), 
+                Component.For<IAuthenticationService>().ImplementedBy<AuthenticationService>(), 
+                Component.For<IPasswordHasher>().ImplementedBy<PasswordHasher>()
+            );
         }
     }
 }

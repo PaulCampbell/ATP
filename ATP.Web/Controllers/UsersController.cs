@@ -45,21 +45,25 @@ namespace ATP.Web.Controllers
         {
             var domainUser = _automapper.Map<User, Domain.Models.User>(user);
             var passwordResult = _authenticationService.UpdatePassword(domainUser, user.Password);
-            var responseErrors = new List<KeyValuePair<string, string>>();
+            var responseObject = new UnprocessableEntity();
             switch(passwordResult)
             {
                 case UpdatePasswordResult.unknown :
                 case UpdatePasswordResult.reservedWord:
                 case UpdatePasswordResult.notLongEnough:
-                    responseErrors.Add(new KeyValuePair<string, string>("Password", "Invalid Password"));
+                    responseObject.AddError(
+                        new Error{Field = "Password", 
+                            Message = "Invalid Password", 
+                            Code = ErrorCode.Invalid,
+                            Resource = user.Uri});
                     break;
             }
 
-            responseErrors.AddRange(ValidateUser(user));
+            responseObject.AddRange(ValidateUser(user));
 
-            if (responseErrors.Any())
+            if (responseObject.Errors.Any())
             {
-                return new HttpResponseMessage<List<KeyValuePair<string, string>>>(responseErrors)
+                return new HttpResponseMessage<UnprocessableEntity>(responseObject)
                            {
                                StatusCode = HttpStatusCode.BadRequest
                            };
@@ -79,12 +83,14 @@ namespace ATP.Web.Controllers
         }
 
 
-        private List<KeyValuePair<string, string>> ValidateUser(User user)
+        private List<Error> ValidateUser(User user)
         {
-            var result = new List<KeyValuePair<string, string>>();
+            var result = new List<Error>();
             if(string.IsNullOrEmpty(user.Email))
             {
-                result.Add(new KeyValuePair<string, string>("Email", "Email address required"));
+                result.Add(
+                    new Error { Field = "Email", Message = "Email address required", 
+                        Code = ErrorCode.Missing, Resource = user.Uri});
             }
             return result;
         }
