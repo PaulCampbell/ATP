@@ -24,6 +24,7 @@ namespace ATP.Web.Bootstrapper
                 ConnectionStringName = "ATPConnection"
             };
             store.Initialize();
+            
             return store;
         }
 

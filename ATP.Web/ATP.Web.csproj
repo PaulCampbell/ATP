@@ -187,6 +187,7 @@
     <Compile Include="Bootstrapper\AutoMapperConfiguration.cs" />
     <Compile Include="Bootstrapper\ControllersInstaller.cs" />
     <Compile Include="Bootstrapper\RavenInstaller.cs" />
+    <Compile Include="Bootstrapper\ServicesInstaller.cs" />
     <Compile Include="Bootstrapper\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\UsersController.cs" />

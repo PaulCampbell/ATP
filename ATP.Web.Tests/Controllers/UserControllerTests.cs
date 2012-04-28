@@ -32,7 +32,7 @@ namespace ATP.Web.Tests.Controllers
 
             var session = store.OpenSession();
 
-            var user = new ATP.Domain.Models.User()
+            var user = new User()
             {
                 Email = "test@decoratedworld.co.uk",
                 FirstName = "Lola",
@@ -44,7 +44,7 @@ namespace ATP.Web.Tests.Controllers
             session.SaveChanges();
             _userId = user.Id;
 
-            _automapper = NSubstitute.Substitute.For<IAutomapper>();
+            _automapper = Substitute.For<IAutomapper>();
             _usersController = new UsersController(session, _automapper);
         }
 
@@ -74,9 +74,28 @@ namespace ATP.Web.Tests.Controllers
         }
 
         [Test]
-        public void post_valid_creates_new_user()
+        public void post_valid_user_persists_new_document()
         {
             
+            var user = new Web.Models.User
+                           {
+                               Email = "abc@d.org",
+                               FirstName = "Bill",
+                               LastName = "Grey",
+                               Password = "password",
+                               MobileNumber = "0777777777"
+                           };
+            _automapper.Map<Web.Models.User, User>(user).Returns(new User
+                                                                     {
+                                                                         Email = "abc@d.org",
+                                                                         FirstName = "Bill",
+                                                                         LastName = "Grey",
+                                                                         MobileNumber = "0777777777" 
+                                                                     });
+             _usersController.Post(user);
+
+             var storedUser = _usersController.DocumentSession.Query<User>().FirstOrDefault(x => x.Email == "abc@d.org");
+             Assert.AreEqual(user.FirstName, storedUser.FirstName);
         }
 
          [Test]

@@ -28,17 +28,24 @@ namespace ATP.Web.Controllers
         // GET /api/users/5
         public User Get(int id)
         {
-            var user = DocumentSession.Load<ATP.Domain.Models.User>(id);
+            var user = DocumentSession.Load<Domain.Models.User>(id);
             if(user!=null)
             {
                 return _automapper.Map<Domain.Models.User, User>(user); 
             }
-            throw new HttpResponseException(HttpStatusCode.NotFound);
+            throw new HttpResponseException("User not found", HttpStatusCode.NotFound);
         }
 
         // POST /api/users
-        public void Post(User user)
+        public HttpResponseMessage Post(User user)
         {
+            var domainUser = _automapper.Map<User, Domain.Models.User>(user); 
+            DocumentSession.Store(domainUser);
+            DocumentSession.SaveChanges();
+            return new HttpResponseMessage<User>(user)
+            {
+                StatusCode = HttpStatusCode.Created
+            };
         }
 
         // PUT /api/users/5
@@ -46,9 +53,5 @@ namespace ATP.Web.Controllers
         {
         }
 
-        // DELETE /api/users/5
-        public void Delete(int id)
-        {
-        }
     }
 }
