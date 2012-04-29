@@ -79,7 +79,10 @@ namespace ATP.Web.Tests.Controllers
             var user = DataGenerator.GenerateWebModelUser();
             user.Email = string.Empty;
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.successful);
-
+            _validationRunner.RunValidation(Arg.Any<NewUserValidator>(), Arg.Any<Web.Resources.User>()).Returns(new List<Error>
+                                                                                                                    {
+                                                                                                                        new Error {Code = ErrorCode.MissingField, Field = "Email"}
+                                                                                                                    });
             var response = _usersController.Post(user);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);

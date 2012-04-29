@@ -8,15 +8,14 @@ using ATP.Domain;
 using ATP.Web.Infrastructure;
 using ATP.Web.Resources;
 using ATP.Web.Validators;
-using AutoMapper;
 using Raven.Client;
 
 namespace ATP.Web.Controllers
 {
     public class UsersController : BaseController
     {
-        private IAutomapper _automapper;
-        private IAuthenticationService _authenticationService;
+        private readonly IAutomapper _automapper;
+        private readonly IAuthenticationService _authenticationService;
         private IValidationRunner _validationRunner;
         // GET /api/users
         public UsersController(IDocumentSession documentSession, IAutomapper automapper, 
@@ -27,6 +26,7 @@ namespace ATP.Web.Controllers
             _automapper = automapper;
             _authenticationService = authenticationService;
             _validationRunner = validationRunner;
+           
         }
 
         public IEnumerable<string> Get()
@@ -63,8 +63,9 @@ namespace ATP.Web.Controllers
                             Resource = user.Uri});
                     break;
             }
-
-            responseObject.AddRange(ValidateUser(user));
+            var validationErrors = _validationRunner.RunValidation(new NewUserValidator(DocumentSession), user);
+            if (validationErrors!=null)
+                responseObject.AddRange(validationErrors);
 
             if (responseObject.Errors.Any())
             {
@@ -83,21 +84,10 @@ namespace ATP.Web.Controllers
         }
 
         // PUT /api/users/5
-        public void Put(int id, string value)
+        public void Put(int id, User value)
         {
         }
 
-
-        private List<Error> ValidateUser(User user)
-        {
-            var result = new List<Error>();
-            if(string.IsNullOrEmpty(user.Email))
-            {
-                result.Add(
-                    new Error { Field = "Email", Message = "Email address required", 
-                        Code = ErrorCode.Missing, Resource = user.Uri});
-            }
-            return result;
-        }
+       
     }
 }

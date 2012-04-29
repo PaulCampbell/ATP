@@ -16,8 +16,8 @@ namespace ATP.Web.Tests.Validator
         {
             var user = new User();
             var validator = Substitute.For<IValidator>();
-            var sut = new ValidationRunner(validator, user);
-            sut.RunValidation();
+            var sut = new ValidationRunner();
+            sut.RunValidation(validator, user);
             validator.Received().Validate(user);
 
         }
