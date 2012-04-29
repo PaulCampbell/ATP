@@ -8,7 +8,7 @@ namespace ATP.Web.Validators
 {
     public interface  IValidationRunner
     {
-        void RunValidation();
+        List<Error> RunValidation();
     }
 
     public class ValidationRunner : IValidationRunner
@@ -21,9 +21,10 @@ namespace ATP.Web.Validators
             _validator = validator;
             _resource = resource;
         }
-        public void RunValidation()
+        public  List<Error> RunValidation()
         {
-            _validator.Validate(_resource);
+            return _validator.Validate(_resource);
+
         }
     }
 }

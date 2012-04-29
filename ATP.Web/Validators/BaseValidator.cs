@@ -6,7 +6,7 @@ namespace ATP.Web.Validators
 {
     public interface IValidator
     {
-        void Validate(Resource resource);
+        List<Error> Validate(Resource resource);
       
     }
 
@@ -17,7 +17,7 @@ namespace ATP.Web.Validators
             Errors = new List<Error>();
         }
 
-        public abstract void Validate(Resource resource);
+        public abstract List<Error> Validate(Resource resource);
 
         public bool IsValid()
         {

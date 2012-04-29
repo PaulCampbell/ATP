@@ -1,33 +1,43 @@
 ﻿using System;
+using System.Linq;
 using ATP.Web.Validators;
 using NUnit.Framework;
 
 namespace ATP.Web.Tests.Validator
 {
     [TestFixture]
-    public class NewUserValidatorFixture
+    public class NewUserValidatorFixture : RavenSessionTest
     {
-        private NewUserValidator _validator;
-
         [Test]
         public void validator_requires_user_resource()
         {
             var l = new Web.Resources.List();
-            var sut = new NewUserValidator();
+            var sut = new NewUserValidator(Session);
 
             Assert.Throws<ArgumentException>(() => sut.Validate(l));
         }
 
         [Test]
-        public void email_address_required()
+        public void no_email_address_adds_error()
         {
             var user = DataGenerator.GenerateWebModelUser();
             user.Email = String.Empty;
-            var sut = new NewUserValidator();
-            sut.Validate(user);
-            Assert.IsFalse(sut.IsValid());
+            var sut = new NewUserValidator(Session);
+            var errorList = sut.Validate(user);
+            Assert.IsTrue(errorList.Any(x=>x.Field=="Email"));
+            Assert.AreEqual(1, errorList.Count);
         }
 
+        [Test]
+        public void duplicate_email_address_adds_error()
+        {
+            var user = DataGenerator.GenerateWebModelUser();
+            user.Email = "test@decoratedworld.co.uk";
+            var sut = new NewUserValidator(Session);
+            var errorList = sut.Validate(user);
+            Assert.IsTrue(errorList.Any(x => x.Field == "Email"));
+            Assert.AreEqual(1, errorList.Count);
+        }
      
     }
 }
