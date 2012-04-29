@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ATP.Web.Models;
+﻿using ATP.Web.Resources;
 using NUnit.Framework;
 
-namespace ATP.Web.Tests.Models
+namespace ATP.Web.Tests.Resources
 {
     [TestFixture]
     public class UserFixture

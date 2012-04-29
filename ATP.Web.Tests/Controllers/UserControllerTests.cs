@@ -7,7 +7,9 @@ using System.Web.Http;
 using ATP.Domain;
 using ATP.Web.Controllers;
 using ATP.Web.Infrastructure;
-using ATP.Web.Models;
+using ATP.Web.Resources;
+using ATP.Web;
+using ATP.Web.Validators;
 using NSubstitute;
 using NUnit.Framework;
 using Raven.Client.Embedded;
@@ -21,6 +23,7 @@ namespace ATP.Web.Tests.Controllers
         private UsersController _usersController;
         private IAutomapper _automapper;
         private IAuthenticationService _authenticationService;
+        private IValidationRunner _validationRunner;
         private int _userId;
 
         [SetUp]
@@ -29,7 +32,8 @@ namespace ATP.Web.Tests.Controllers
             _userId = Session.Query<User>().FirstOrDefault().Id;
             _automapper = Substitute.For<IAutomapper>();
             _authenticationService = Substitute.For<IAuthenticationService>();
-            _usersController = new UsersController(Session, _automapper, _authenticationService);
+            _validationRunner = Substitute.For<IValidationRunner>();
+            _usersController = new UsersController(Session, _automapper, _authenticationService, _validationRunner);
         }
 
         [Test]
@@ -44,23 +48,23 @@ namespace ATP.Web.Tests.Controllers
             const string userEmail = "test@decoratedworld.co.uk";
             _usersController.Get(_userId);
 
-            _automapper.Received().Map<User, Web.Models.User>(Arg.Is<User>(user => user.Email == userEmail));
+            _automapper.Received().Map<User, Web.Resources.User>(Arg.Is<User>(user => user.Email == userEmail));
         }
 
         [Test]
         public void get_valid_user_returns_model_of_type_WebModelsUser()
         {
-            _automapper.Map<User, Web.Models.User>(Arg.Any<User>()).ReturnsForAnyArgs(new Web.Models.User());
+            _automapper.Map<User, Web.Resources.User>(Arg.Any<User>()).ReturnsForAnyArgs(new Web.Resources.User());
             var u = _usersController.Get(_userId);
 
-            Assert.IsTrue(u is Web.Models.User);
+            Assert.IsTrue(u is Web.Resources.User);
         }
 
         [Test]
         public void post_valid_user_persists_new_document()
         {
             var user = DataGenerator.GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
+            _automapper.Map<Web.Resources.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.successful);
 
             _usersController.Post(user);
@@ -85,7 +89,7 @@ namespace ATP.Web.Tests.Controllers
         public void post_valid_returns_201()
         {
             var user = DataGenerator.GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
+            _automapper.Map<Web.Resources.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.successful);
 
             var response = _usersController.Post(user);
@@ -97,7 +101,7 @@ namespace ATP.Web.Tests.Controllers
         public void post_valid_calls_update_password()
         {
             var user = DataGenerator.GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
+            _automapper.Map<Web.Resources.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _usersController.Post(user);
 
             _authenticationService.Received().UpdatePassword(Arg.Any<User>(), user.Password);
@@ -107,7 +111,7 @@ namespace ATP.Web.Tests.Controllers
         public void post_invalid_returns_400()
         {
             var user = DataGenerator.GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
+            _automapper.Map<Web.Resources.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.notLongEnough);
 
             var response = _usersController.Post(user);
@@ -120,7 +124,7 @@ namespace ATP.Web.Tests.Controllers
         public void post_invalid_returns_UnprocessablEntity()
         {
             var user = DataGenerator.GenerateWebModelUser();
-            _automapper.Map<Web.Models.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
+            _automapper.Map<Web.Resources.User, User>(user).Returns(DataGenerator.GenerateDomainModelUser());
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.notLongEnough);
 
             var response = _usersController.Post(user);

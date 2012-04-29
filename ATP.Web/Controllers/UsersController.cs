@@ -6,7 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using ATP.Domain;
 using ATP.Web.Infrastructure;
-using ATP.Web.Models;
+using ATP.Web.Resources;
+using ATP.Web.Validators;
 using AutoMapper;
 using Raven.Client;
 
@@ -16,12 +17,16 @@ namespace ATP.Web.Controllers
     {
         private IAutomapper _automapper;
         private IAuthenticationService _authenticationService;
+        private IValidationRunner _validationRunner;
         // GET /api/users
         public UsersController(IDocumentSession documentSession, IAutomapper automapper, 
-            IAuthenticationService authenticationService) : base(documentSession)
+            IAuthenticationService authenticationService,
+            IValidationRunner validationRunner)
+            : base(documentSession)
         {
             _automapper = automapper;
             _authenticationService = authenticationService;
+            _validationRunner = validationRunner;
         }
 
         public IEnumerable<string> Get()

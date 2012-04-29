@@ -1,25 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace ATP.Web.Models
+﻿namespace ATP.Web.Resources
 {
-    public class User
+    public class User : Resource
     {
-        public int Id { get; set; } 
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string FullName { get { return string.Format("{0} {1}", FirstName, LastName); } }
         public string Email { get; set; }
         public string MobileNumber { get; set; }
         public string Password { get; set; }
-        public string Uri
-        {
-            get
-            {
-                return "/users/" + Id;
-            }
-        }
     }
 }

@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using ATP.Web.Resources;
 
 namespace ATP.Web.Tests
 {
     public static class DataGenerator
     {
-        public static  Web.Models.User GenerateWebModelUser()
+        public static  User GenerateWebModelUser()
         {
-            return new Web.Models.User
+            return new User
             {
                 Email = "abc@d.org",
                 FirstName = "Bill",
