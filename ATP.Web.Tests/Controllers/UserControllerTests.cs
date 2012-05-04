@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Web.Http;
 using ATP.Domain;
@@ -39,7 +40,16 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void get_invalid_user_returns_404()
         {
-            Assert.Throws<HttpResponseException>(()=>_usersController.Get(1001));
+            var result = _usersController.Get(1001);
+            Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode);
+        }
+
+        [Test]
+        public void get_valid_user_returns_200()
+        {
+            var result = _usersController.Get(_userId);
+
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
 
         [Test]
@@ -57,7 +67,7 @@ namespace ATP.Web.Tests.Controllers
             _automapper.Map<User, Web.Resources.User>(Arg.Any<User>()).ReturnsForAnyArgs(new Web.Resources.User());
             var u = _usersController.Get(_userId);
 
-            Assert.IsTrue(u is Web.Resources.User);
+            Assert.IsTrue(u.Content is ObjectContent<Web.Resources.User>);
         }
 
         [Test]
@@ -79,10 +89,13 @@ namespace ATP.Web.Tests.Controllers
             var user = DataGenerator.GenerateWebModelUser();
             user.Email = string.Empty;
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.successful);
-            _validationRunner.RunValidation(Arg.Any<NewUserValidator>(), Arg.Any<Web.Resources.User>()).Returns(new List<Error>
-                                                                                                                    {
-                                                                                                                        new Error {Code = ErrorCode.MissingField, Field = "Email"}
-                                                                                                                    });
+            _validationRunner.RunValidation(Arg.Any<NewUserValidator>(), Arg.Any<Web.Resources.User>())
+                .Returns(new List<Error>
+                            {
+                                new Error {Code = ErrorCode.MissingField, Field = "Email"}
+                            }
+                         );
+
             var response = _usersController.Post(user);
 
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
@@ -121,8 +134,6 @@ namespace ATP.Web.Tests.Controllers
             Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
 
         }
-
-        [Ignore("Not sure about all this at the moment.")]
         [Test]
         public void post_invalid_returns_UnprocessablEntity()
         {
@@ -131,16 +142,50 @@ namespace ATP.Web.Tests.Controllers
             _authenticationService.UpdatePassword(Arg.Any<User>(), user.Password).ReturnsForAnyArgs(UpdatePasswordResult.notLongEnough);
 
             var response = _usersController.Post(user);
-            Assert.IsTrue(response.Content is UnprocessableEntity);
+            Assert.IsTrue(response.Content is ObjectContent<UnprocessableEntity>);
 
         }
 
         [Test]
         public void put_non_existent_user_returns404()
         {
-            
+            var user = DataGenerator.GenerateWebModelUser();
+            user.Id = 9000000;
+
+            var result = _usersController.Put(9000000, user);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, result.StatusCode );
         }
 
+        [Test]
+        public void put_null_user_returns_400()
+        {
+            var result = _usersController.Put(1, null);
+            Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode);
+        }
+
+        [Test]
+        public void put_invalid_user_returns_400()
+        {
+            var user = DataGenerator.GenerateWebModelUser();
+            user.Email = String.Empty;
+            _validationRunner.RunValidation(Arg.Any<IValidator>(), Arg.Any<Resource>()).Returns(new List<Error>() { new Error {Code = ErrorCode.MissingField, Field = "Email", Message = "Email missing"}});
+            var result = _usersController.Put(1, user);
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, result.StatusCode);
+        }
+
+        [Test]
+        public void put_invalid_user_returns_correct_errors()
+        {
+            var user = DataGenerator.GenerateWebModelUser();
+            user.Email = String.Empty;
+            _validationRunner.RunValidation(Arg.Any<IValidator>(), Arg.Any<Resource>()).Returns(new List<Error>() { new Error { Code = ErrorCode.MissingField, Field = "Email", Message = "Email missing" } });
+            var result = _usersController.Put(1, user);
+
+            Assert.IsTrue(result.Content is ObjectContent<UnprocessableEntity>);
+      
+        }
         
     }
 }

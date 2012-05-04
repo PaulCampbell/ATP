@@ -3,15 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http;
+using ATP.Domain.Models;
+using Microsoft.Isam.Esent.Interop;
+using Raven.Client;
 
 namespace ATP.Web.Controllers
 {
-    public class ValuesController : ApiController
+    public class ValuesController : BaseController
     {
-        // GET /api/values
-        public IEnumerable<string> Get()
+
+        public ValuesController(IDocumentSession documentSession) :
+            base(documentSession)
         {
-            return new string[] { "value1", "value2" };
+            
+        }
+
+        // GET /api/values
+        public User Get()
+        {
+
+            var user = new User
+            {
+                Email = "test@decoratedworld.co.uk",
+                FirstName = "Lola",
+                LastName = "Dog",
+                HashedPassword = "hashedpassword"
+            };
+
+            DocumentSession.Store(user);
+            DocumentSession.SaveChanges();
+            return user;
         }
 
         // GET /api/values/5

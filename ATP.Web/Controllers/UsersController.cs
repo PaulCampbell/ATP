@@ -29,20 +29,21 @@ namespace ATP.Web.Controllers
            
         }
 
-        public IEnumerable<string> Get()
+        public IEnumerable<User> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new User[] {  };
         }
 
         // GET /api/users/5
-        public User Get(int id)
+        public HttpResponseMessage Get(int id)
         {
             var user = DocumentSession.Load<Domain.Models.User>(id);
             if(user!=null)
             {
-                return _automapper.Map<Domain.Models.User, User>(user); 
+                var u = _automapper.Map<Domain.Models.User, User>(user); 
+                return new HttpResponseMessage<User>(u) { StatusCode = HttpStatusCode.OK};
             }
-            throw new HttpResponseException("User not found", HttpStatusCode.NotFound);
+            return new HttpResponseMessage( HttpStatusCode.NotFound);
         }
 
         // POST /api/users
@@ -84,10 +85,35 @@ namespace ATP.Web.Controllers
         }
 
         // PUT /api/users/5
-        public void Put(int id, User value)
+        public HttpResponseMessage Put(int id, User user)
         {
-        }
+            if(user==null)
+                return new HttpResponseMessage()
+                {
+                    StatusCode = HttpStatusCode.BadRequest
+                };
 
-       
+            var domainUser = DocumentSession.Load<Domain.Models.User>(id);
+            var responseObject = new UnprocessableEntity();
+            
+            if (domainUser == null)
+                return new HttpResponseMessage<UnprocessableEntity>(responseObject)
+                           {
+                               StatusCode = HttpStatusCode.NotFound
+                           };
+
+            var validationErrors = _validationRunner.RunValidation(new NewUserValidator(DocumentSession), user);
+            
+            if(validationErrors.Any())
+            {
+                responseObject.AddRange(validationErrors);
+                return new HttpResponseMessage<UnprocessableEntity>(responseObject)
+                {
+                    StatusCode = HttpStatusCode.BadRequest
+                };
+            }
+            
+            return  new HttpResponseMessage { StatusCode = HttpStatusCode.OK};
+        } 
     }
 }

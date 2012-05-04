@@ -37,7 +37,6 @@ namespace ATP.Web.Tests.Validator
             var errorList = sut.Validate(user);
             Assert.IsTrue(errorList.Any(x => x.Field == "Email"));
             Assert.AreEqual(1, errorList.Count);
-        }
-     
+        }    
     }
 }
