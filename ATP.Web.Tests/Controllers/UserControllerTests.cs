@@ -73,7 +73,11 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void get_all_returns_pagable_sortable_list_of_users()
         {
-            
+            _automapper.Map<List<User>, List<Web.Resources.User>>(Arg.Any<List<User>>()).Returns(new List<Web.Resources.User>());
+
+            var result = _usersController.Get();
+
+            Assert.IsTrue(result.Content is ObjectContent<PagableSortableList<Web.Resources.User>>);
         }
 
         [Test]

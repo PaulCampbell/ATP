@@ -29,12 +29,26 @@ namespace ATP.Web.Controllers
            
         }
 
-        public IEnumerable<User> Get()
+        public HttpResponseMessage Get(int? resultsPerPage = 25, int? pageNumber = 1, 
+                                       string sortBy = "Id", string sortDirection = "Desc")
         {
-            return new User[] {  };
+            Raven.Client.Linq.RavenQueryStatistics stats;
+
+            var users = DocumentSession.Query<Domain.Models.User>().Statistics(out stats)
+                .Skip(resultsPerPage.Value*(pageNumber.Value - 1))
+                .Take(resultsPerPage.Value).ToList();
+
+            var totalResult = stats.TotalResults;
+
+            var usersResource = _automapper.Map<List<Domain.Models.User>, List<User>>(users);
+
+            var responseObject = new PagableSortableList<User>(totalResult, resultsPerPage.Value, 
+                pageNumber.Value, usersResource, sortBy, sortDirection);
+
+            return new HttpResponseMessage<PagableSortableList<User>>(responseObject) { StatusCode = HttpStatusCode.OK} ;
         }
 
-        // GET /api/users/5
+
         public HttpResponseMessage Get(int id)
         {
             var user = DocumentSession.Load<Domain.Models.User>(id);
@@ -43,10 +57,10 @@ namespace ATP.Web.Controllers
                 var u = _automapper.Map<Domain.Models.User, User>(user); 
                 return new HttpResponseMessage<User>(u) { StatusCode = HttpStatusCode.OK};
             }
-            return new HttpResponseMessage( HttpStatusCode.NotFound);
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
-        // POST /api/users
+
         public HttpResponseMessage Post(User user)
         {
             var domainUser = _automapper.Map<User, Domain.Models.User>(user);
@@ -84,7 +98,7 @@ namespace ATP.Web.Controllers
             };
         }
 
-        // PUT /api/users/5
+
         public HttpResponseMessage Put(int id, User user)
         {
             if(user==null)

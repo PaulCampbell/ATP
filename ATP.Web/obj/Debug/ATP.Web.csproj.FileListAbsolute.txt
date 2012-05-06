@@ -4,7 +4,6 @@ c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Micr
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Newtonsoft.Json.dll
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\NLog.dll
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Abstractions.dll
-c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Debug.dll
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Lightweight.dll
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.MvcIntegration.dll
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\System.Json.dll
@@ -27,7 +26,6 @@ c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Newt
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\NLog.xml
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Abstractions.pdb
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Abstractions.xml
-c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Debug.pdb
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Lightweight.pdb
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Lightweight.xml
 c:\users\paulcampbell\documents\visual studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.MvcIntegration.pdb
@@ -51,9 +49,6 @@ C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Cast
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Castle.Windsor.dll
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Castle.Core.xml
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Castle.Windsor.xml
-C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Lightweight.FSharp.dll
-C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Lightweight.FSharp.pdb
-C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Lightweight.FSharp.xml
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\AsyncCtpLibrary.dll
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\BouncyCastle.Crypto.dll
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Esent.Interop.dll
@@ -61,7 +56,6 @@ C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\ICSh
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Lucene.Net.Contrib.Spatial.dll
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Lucene.Net.Contrib.SpellChecker.dll
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Lucene.Net.dll
-C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Embedded.dll
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Database.dll
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Munin.dll
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Storage.Esent.dll
@@ -76,8 +70,6 @@ C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Luce
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Lucene.Net.Contrib.Spatial.xml
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Lucene.Net.Contrib.SpellChecker.pdb
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Lucene.Net.Contrib.SpellChecker.xml
-C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Embedded.pdb
-C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Client.Embedded.xml
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Database.pdb
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Database.xml
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\Raven.Munin.pdb
