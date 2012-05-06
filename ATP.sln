@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.Domain.Tests", "ATP.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.Web.Tests", "ATP.Web.Tests\ATP.Web.Tests.csproj", "{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ATP.Client", "ATP.Client\ATP.Client.csproj", "{EDD0F7F1-8311-48A6-9D3C-7C25CEEAA7D3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0ED3BB4D-5435-49E5-8F2D-C7A6246CA7FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD0F7F1-8311-48A6-9D3C-7C25CEEAA7D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD0F7F1-8311-48A6-9D3C-7C25CEEAA7D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD0F7F1-8311-48A6-9D3C-7C25CEEAA7D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD0F7F1-8311-48A6-9D3C-7C25CEEAA7D3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

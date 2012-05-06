@@ -16,7 +16,7 @@ namespace ATP.Web.Controllers
     {
         private readonly IAutomapper _automapper;
         private readonly IAuthenticationService _authenticationService;
-        private IValidationRunner _validationRunner;
+        private readonly IValidationRunner _validationRunner;
         // GET /api/users
         public UsersController(IDocumentSession documentSession, IAutomapper automapper, 
             IAuthenticationService authenticationService,

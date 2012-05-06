@@ -71,6 +71,12 @@ namespace ATP.Web.Tests.Controllers
         }
 
         [Test]
+        public void get_all_returns_pagable_sortable_list_of_users()
+        {
+            
+        }
+
+        [Test]
         public void post_valid_user_persists_new_document()
         {
             var user = DataGenerator.GenerateWebModelUser();

@@ -109,11 +109,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bootstrapper\AutoMapperConfigerationFixture.cs" />
+    <Compile Include="Controllers\AuthenticateControllerFixture.cs" />
     <Compile Include="Controllers\UserControllerTests.cs" />
     <Compile Include="DataGenerator.cs" />
+    <Compile Include="Resources\PagableSortableListFixture.cs" />
     <Compile Include="Resources\UserFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RavenSessionTest.cs" />
+    <Compile Include="Validator\AuthenticateValidatorFixture.cs" />
     <Compile Include="Validator\NewUserValidatorFixture.cs" />
     <Compile Include="Validator\ValidationRunnerFixture.cs" />
   </ItemGroup>

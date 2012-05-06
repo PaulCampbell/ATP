@@ -1,4 +1,6 @@
-﻿namespace ATP.Web.Resources
+﻿using System.Collections.Generic;
+
+namespace ATP.Web.Resources
 {
     public class Resource
     {
@@ -9,6 +11,13 @@
             {
                 return "/users/" + Id;
             }
+        }
+
+        public List<ResourceLink> Actions { get; set; }
+
+        public Resource()
+        {
+            Actions = new List<ResourceLink>();
         }
     }
 }

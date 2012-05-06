@@ -11,7 +11,10 @@ namespace ATP.Web.Bootstrapper
         public static void Init()
         {
             AutoMapper.Mapper.CreateMap<Domain.Models.User, User>()
-                .ForMember(u=>u.Password, opt=>opt.Ignore());
+                .ForMember(u => u.Password, opt => opt.Ignore())
+                .ForMember(u => u.Uri, opt => opt.Ignore())
+                .ForMember(u => u.Actions, opt => opt.Ignore());
+                
 
             AutoMapper.Mapper.CreateMap<User, Domain.Models.User>()
                .ForMember(u => u.HashedPassword, opt => opt.Ignore())

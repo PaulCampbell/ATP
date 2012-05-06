@@ -90,3 +90,7 @@ C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\ATP.
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\CuttingEdge.Conditions.xml
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\AutoMapper.dll
 C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\AutoMapper.xml
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.dll
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\DotNetOpenAuth.OAuth2.dll
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\DotNetOpenAuth.OAuth2.xml
+C:\Users\paulcampbell\Documents\Visual Studio 2010\Projects\ATP\ATP.Web\bin\DotNetOpenAuth.OAuth2.AuthorizationServer.xml

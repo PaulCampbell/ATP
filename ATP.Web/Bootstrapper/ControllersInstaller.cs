@@ -32,6 +32,7 @@ namespace ATP.Web.Bootstrapper
                     .Named(name)
                     .LifestylePerWebRequest());
             }
+
         }
     }
 }

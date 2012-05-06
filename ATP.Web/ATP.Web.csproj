@@ -52,6 +52,12 @@
     <Reference Include="CuttingEdge.Conditions">
       <HintPath>..\packages\CuttingEdge.Conditions.1.2.0.0\lib\NET35\CuttingEdge.Conditions.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.Core.0.23.0-draft4\lib\net40-full\DotNetOpenAuth.OAuth2.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth2.AuthorizationServer">
+      <HintPath>..\packages\DotNetOpenAuth.OAuth2.AuthorizationServer.0.23.0-draft4\lib\net40-full\DotNetOpenAuth.OAuth2.AuthorizationServer.dll</HintPath>
+    </Reference>
     <Reference Include="Esent.Interop">
       <HintPath>..\packages\RavenDB-Embedded.1.0.888\lib\net40\Esent.Interop.dll</HintPath>
     </Reference>
@@ -189,6 +195,7 @@
     <Compile Include="Bootstrapper\RavenInstaller.cs" />
     <Compile Include="Bootstrapper\ServicesInstaller.cs" />
     <Compile Include="Bootstrapper\WindsorControllerFactory.cs" />
+    <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -196,10 +203,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Automapper.cs" />
+    <Compile Include="Resources\Authenticate.cs" />
     <Compile Include="Resources\List.cs" />
+    <Compile Include="Resources\PagableSortableList.cs" />
     <Compile Include="Resources\Resource.cs" />
+    <Compile Include="Resources\ResourceLink.cs" />
     <Compile Include="Resources\UnprocessableEntity.cs" />
     <Compile Include="Resources\User.cs" />
+    <Compile Include="Validators\AuthenticateValidator.cs" />
     <Compile Include="Validators\BaseValidator.cs" />
     <Compile Include="Validators\NewUserValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
