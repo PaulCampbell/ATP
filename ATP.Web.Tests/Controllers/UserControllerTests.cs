@@ -3,17 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Text;
-using System.Web.Http;
 using ATP.Domain;
 using ATP.Web.Controllers;
 using ATP.Web.Infrastructure;
 using ATP.Web.Resources;
-using ATP.Web;
 using ATP.Web.Validators;
 using NSubstitute;
 using NUnit.Framework;
-using Raven.Client.Embedded;
 using User = ATP.Domain.Models.User;
 
 namespace ATP.Web.Tests.Controllers
