@@ -52,7 +52,7 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void get_valid_user_maps_the_user_to_web_model()
         {
-            const string userEmail = "test@decoratedworld.co.uk";
+            const string userEmail = "abc@d.org";
             _usersController.Get(_userId);
 
             _automapper.Received().Map<User, Web.Resources.User>(Arg.Is<User>(user => user.Email == userEmail));
