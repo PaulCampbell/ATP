@@ -189,6 +189,7 @@
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ListsController.cs" />
+    <Compile Include="Controllers\PagableSortableResourceController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

@@ -70,9 +70,9 @@ namespace ATP.Web.Tests.Controllers
         {
             _automapper.Map<List<User>, List<Web.Resources.User>>(Arg.Any<List<User>>()).Returns(new List<Web.Resources.User>());
 
-         //   var result = _listController.Get();
+            var result = _listController.Get();
 
-         //   Assert.IsTrue(result.Content is ObjectContent<PagableSortableList<Web.Resources.User>>);
+            Assert.IsTrue(result.Content is ObjectContent<PagableSortableList<Web.Resources.User>>);
         }
 
       

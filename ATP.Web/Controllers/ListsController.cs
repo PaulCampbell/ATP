@@ -13,14 +13,14 @@ using Raven.Client;
 
 namespace ATP.Web.Controllers
 {
-    public class ListsController : BaseController
+    public class ListsController : PagableSortableResourceController<Domain.Models.User, Web.Resources.User>
     {
         private readonly IAutomapper _automapper;
         private readonly IValidationRunner _validationRunner;
 
         public ListsController(IDocumentSession documentSession, IAutomapper automapper,
             IValidationRunner validationRunner)
-            : base(documentSession)
+            : base(documentSession, automapper)
         {
             _automapper = automapper;
             _validationRunner = validationRunner;

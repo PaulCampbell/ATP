@@ -12,7 +12,7 @@ using Raven.Client;
 
 namespace ATP.Web.Controllers
 {
-    public class UsersController : BaseController
+    public class UsersController : PagableSortableResourceController<Domain.Models.User, Web.Resources.User>
     {
         private readonly IAutomapper _automapper;
         private readonly IAuthenticationService _authenticationService;
@@ -21,43 +21,12 @@ namespace ATP.Web.Controllers
         public UsersController(IDocumentSession documentSession, IAutomapper automapper, 
             IAuthenticationService authenticationService,
             IValidationRunner validationRunner)
-            : base(documentSession)
+            : base(documentSession, automapper)
         {
             _automapper = automapper;
             _authenticationService = authenticationService;
             _validationRunner = validationRunner;
            
-        }
-
-        public HttpResponseMessage Get(int? resultsPerPage = 25, int? pageNumber = 1, 
-                                       string sortBy = "Id", string sortDirection = "Desc")
-        {
-            Raven.Client.Linq.RavenQueryStatistics stats;
-
-            var users = DocumentSession.Query<Domain.Models.User>().Statistics(out stats)
-                .Skip(resultsPerPage.Value*(pageNumber.Value - 1))
-                .Take(resultsPerPage.Value).ToList();
-
-            var totalResult = stats.TotalResults;
-
-            var usersResource = _automapper.Map<List<Domain.Models.User>, List<User>>(users);
-
-            var responseObject = new PagableSortableList<User>(totalResult, resultsPerPage.Value, 
-                pageNumber.Value, usersResource, sortBy, sortDirection);
-
-            return new HttpResponseMessage<PagableSortableList<User>>(responseObject) { StatusCode = HttpStatusCode.OK} ;
-        }
-
-
-        public HttpResponseMessage Get(int id)
-        {
-            var user = DocumentSession.Load<Domain.Models.User>(id);
-            if(user!=null)
-            {
-                var u = _automapper.Map<Domain.Models.User, User>(user); 
-                return new HttpResponseMessage<User>(u) { StatusCode = HttpStatusCode.OK};
-            }
-            return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
 
