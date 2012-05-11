@@ -188,6 +188,7 @@
     <Compile Include="Bootstrapper\WindsorControllerFactory.cs" />
     <Compile Include="Controllers\AuthenticateController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ListsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -197,6 +198,7 @@
     <Compile Include="Resources\Authenticate.cs" />
     <Compile Include="Resources\List.cs" />
     <Compile Include="Resources\PagableSortableList.cs" />
+    <Compile Include="Resources\Place.cs" />
     <Compile Include="Resources\Resource.cs" />
     <Compile Include="Resources\ResourceLink.cs" />
     <Compile Include="Resources\UnprocessableEntity.cs" />

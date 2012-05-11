@@ -14,5 +14,6 @@ namespace ATP.Domain.Models
         public string MobileNumber { get; set; }
         public string HashedPassword { get; set; }
 
+
     }
 }

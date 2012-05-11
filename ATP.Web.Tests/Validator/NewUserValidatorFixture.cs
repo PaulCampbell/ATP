@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ATP.PersistenceTests;
 using ATP.Web.Validators;
 using NUnit.Framework;
 
@@ -32,7 +33,7 @@ namespace ATP.Web.Tests.Validator
         public void duplicate_email_address_adds_error()
         {
             var user = DataGenerator.GenerateWebModelUser();
-            user.Email = "test@decoratedworld.co.uk";
+            user.Email = "abc@d.org";
             var sut = new NewUserValidator(Session);
             var errorList = sut.Validate(user);
             Assert.IsTrue(errorList.Any(x => x.Field == "Email"));

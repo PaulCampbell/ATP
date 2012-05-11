@@ -55,6 +55,8 @@
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="DateProvider.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\List.cs" />
+    <Compile Include="Models\Place.cs" />
     <Compile Include="PasswordHasher.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

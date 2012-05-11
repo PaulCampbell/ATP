@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using ATP.Domain.Models;
-using NSubstitute;
-using NUnit.Framework;
-using Raven.Client;
+﻿using Raven.Client;
 using Raven.Client.Embedded;
 
-namespace ATP.Domain.Tests
+namespace ATP.PersistenceTests
 {
     public class RavenSessionTest
     {
@@ -27,15 +20,14 @@ namespace ATP.Domain.Tests
 
             Session = Store.OpenSession();
 
-            var user = new User
-                           {
-                               Email = "test@decoratedworld.co.uk",
-                               FirstName = "Lola",
-                               LastName = "Dog",
-                               HashedPassword = "hashedpassword"
-                           };
+            var user = DataGenerator.GenerateDomainModelUser();
 
             Session.Store(user);
+            Session.SaveChanges();
+
+            var list = DataGenerator.GenereateDomainModelList();
+
+            Session.Store(list);
             Session.SaveChanges();
         }
     }

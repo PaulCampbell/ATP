@@ -92,17 +92,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationServiceFixture.cs" />
-    <Compile Include="DataGenerator.cs" />
+    <Compile Include="Models\ListFixture.cs" />
     <Compile Include="Models\UserFixture.cs" />
     <Compile Include="Models\EntityFixture.cs" />
     <Compile Include="Persistence.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RavenSessionTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ATP.Domain\ATP.Domain.csproj">
       <Project>{CB2A790B-1230-4201-8B57-4D7B91374D2E}</Project>
       <Name>ATP.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ATP.PersistenceTests\ATP.PersistenceTests.csproj">
+      <Project>{14359D88-331B-4681-9C70-B2B3BF0C4B8C}</Project>
+      <Name>ATP.PersistenceTests</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

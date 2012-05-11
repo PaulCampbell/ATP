@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using ATP.PersistenceTests;
 using NUnit.Framework;
 using NSubstitute;
 using ATP.Domain.Models;
@@ -65,7 +66,7 @@ namespace ATP.Domain.Tests
         {
             _passwordHasher.VerifyHash("wrongpass", "SomeHash").ReturnsForAnyArgs(false);
 
-            var result = _authService.Login("test@decoratedworld.co.uk", "SomePassword");
+            var result = _authService.Login("abc@d.org", "SomePassword");
 
             Assert.AreEqual(LoginResult.unsuccessful, result);
         }
@@ -76,7 +77,7 @@ namespace ATP.Domain.Tests
 
             _passwordHasher.VerifyHash("goodpassword", "hashedpassword").ReturnsForAnyArgs(true);
 
-            var result = _authService.Login("test@decoratedworld.co.uk", "hashedpassword");
+            var result = _authService.Login("abc@d.org", "hashedpassword");
 
             Assert.AreEqual(LoginResult.successful, result);
         }

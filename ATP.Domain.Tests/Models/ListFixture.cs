@@ -9,21 +9,15 @@ using List = ATP.Domain.Models.List;
 namespace ATP.Domain.Tests
 {
     [TestFixture]
-    public class UserFixture
+    public class ListFixture
     {
         [Test]
         public void user_inherits_from_entity()
         {
-            var u = new User();
-            Assert.IsTrue(u is Entity);
+            var l = new List();
+            Assert.IsTrue(l is Entity);
         }
 
-        [Test]
-        public void add_list_with_unique_name_for_this_user_addsAList()
-        {
-            var u = new User();
-            var list = new List { ListName = "My new list" };
-
-        }
     }
+   
 }
