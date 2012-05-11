@@ -22,7 +22,7 @@ namespace ATP.Domain.Tests
         public void add_list_with_unique_name_for_this_user_addsAList()
         {
             var u = new User();
-            var list = new List { ListName = "My new list" };
+            var list = new List { Name = "My new list" };
 
         }
     }

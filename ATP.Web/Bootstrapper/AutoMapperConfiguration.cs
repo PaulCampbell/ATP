@@ -20,6 +20,26 @@ namespace ATP.Web.Bootstrapper
                .ForMember(u => u.HashedPassword, opt => opt.Ignore())
                .ForMember(u => u.Added, opt => opt.Ignore());
 
+
+            AutoMapper.Mapper.CreateMap<Domain.Models.List, List>()
+               .ForMember(u => u.Uri, opt => opt.Ignore())
+               .ForMember(u => u.Actions, opt => opt.Ignore())
+               .ForMember(l => l.Places, opt => opt.Ignore());
+
+
+            AutoMapper.Mapper.CreateMap<List, Domain.Models.List>()
+               .ForMember(u => u.Added, opt => opt.Ignore())
+               .ForMember(l=>l.Places, opt=>opt.Ignore());
+
+
+            AutoMapper.Mapper.CreateMap<Domain.Models.Place, Place>()
+              .ForMember(u => u.Uri, opt => opt.Ignore())
+              .ForMember(u => u.Actions, opt => opt.Ignore());
+
+
+            AutoMapper.Mapper.CreateMap<Place, Domain.Models.Place>()
+               .ForMember(u => u.Added, opt => opt.Ignore());
+
         }
     }
 }

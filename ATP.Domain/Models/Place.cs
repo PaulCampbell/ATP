@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ATP.Domain.Models
 {
-    public class Place 
+    public class Place : Entity
     {
         public string Name { get; set; }
         public float Longitude { get; set; }

@@ -12,12 +12,32 @@ namespace ATP.Domain.Tests
     public class ListFixture
     {
         [Test]
-        public void user_inherits_from_entity()
+        public void list_inherits_from_entity()
         {
             var l = new List();
             Assert.IsTrue(l is Entity);
         }
 
+        [Test]
+        public void can_add_new_place()
+        {
+            var p = new Place {Id = 1};
+            var l = new List();
+            l.AddPlace(p);
+
+            Assert.AreEqual(1, l.Places.Count);
+        }
+
+        [Test]
+        public void cannot_add_duplicate_places()
+        {
+            var p = new Place { Id = 1 };
+            var l = new List();
+            l.AddPlace(p);
+            l.AddPlace(p);
+
+            Assert.AreEqual(1, l.Places.Count);
+        }
     }
    
 }

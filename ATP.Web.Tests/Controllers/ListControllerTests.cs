@@ -53,7 +53,7 @@ namespace ATP.Web.Tests.Controllers
             const string listName = "Leeds Pubs";
             _listController.Get(_listId);
 
-            _automapper.Received().Map<Domain.Models.List, Web.Resources.List>(Arg.Is<Domain.Models.List>(list => list.ListName == listName));
+            _automapper.Received().Map<Domain.Models.List, Web.Resources.List>(Arg.Is<Domain.Models.List>(list => list.Name == listName));
         }
 
         [Test]

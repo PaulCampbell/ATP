@@ -31,29 +31,13 @@ namespace ATP.PersistenceTests
 
         public static Domain.Models.List GenereateDomainModelList()
         {
+          
+
             return new Domain.Models.List
             {
-                ListName = "Leeds Pubs",
-                Places = new List<Domain.Models.Place>
-                                        {
-                                            new Domain.Models.Place
-                                                {
-                                                    Description =
-                                                        "Nice selection of guest ales, Live dodgy eighties rock bands. Perfect.",
-                                                    Latitude = 52.002324f,
-                                                    Longitude = -0.5734f,
-                                                    Name = "The Duck and Drake"
-                                                },
-                                            new Domain.Models.Place
-                                                {
-                                                    Description =
-                                                        "Kinda trendy place - multiple rooms, decent beer from Leeds brewary and guests",
-                                                    Latitude = 52.002324f,
-                                                    Longitude = -0.5734f,
-                                                    Name = "The Adelphi"
-                                                }
-                                        },
-                UserId = "users/1"
+                Name = "Leeds Pubs",
+                Places = new List<string> {"places/1", "places/2"},
+                User = "users/1"
             };
         }
 
