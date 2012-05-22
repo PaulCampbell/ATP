@@ -8,5 +8,12 @@
         public string Email { get; set; }
         public string MobileNumber { get; set; }
         public string Password { get; set; }
+        public PagableSortableList<List> Lists { get; set; } 
+ 
+        public User() :base("/users/")
+        {
+            
+        }
+ 
     }
 }

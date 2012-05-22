@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="AuthenticationService.cs" />
     <Compile Include="DateProvider.cs" />
+    <Compile Include="ListManager.cs" />
     <Compile Include="Models\Entity.cs" />
     <Compile Include="Models\List.cs" />
     <Compile Include="Models\Place.cs" />

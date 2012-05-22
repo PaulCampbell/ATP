@@ -17,6 +17,9 @@ namespace ATP.Web.Controllers
         private readonly IAutomapper _automapper;
         private readonly IAuthenticationService _authenticationService;
         private readonly IValidationRunner _validationRunner;
+
+        private const int DefaultUserListResultsSize = 25;
+
         // GET /api/users
         public UsersController(IDocumentSession documentSession, IAutomapper automapper, 
             IAuthenticationService authenticationService,
@@ -27,6 +30,28 @@ namespace ATP.Web.Controllers
             _authenticationService = authenticationService;
             _validationRunner = validationRunner;
            
+        }
+
+        public override HttpResponseMessage Get(int id)
+        {
+            var model = DocumentSession.Load<Domain.Models.User>(id);
+            if (model != null)
+            {
+                var resource = _automapper.Map<Domain.Models.User, User>(model);
+
+                Raven.Client.Linq.RavenQueryStatistics stats;
+
+                var userListsFirstPage = DocumentSession.Query<Domain.Models.List>().Statistics(out stats)
+                    .Where(x=>x.User == "/users/" + model.Id).OrderByDescending(x=>x.Added)
+                    .Take(DefaultUserListResultsSize).ToList();
+
+                var userListResources = _automapper.Map < List<Domain.Models.List>, List<List>>(userListsFirstPage);
+
+                resource.Lists = new PagableSortableList<List>(stats.TotalResults, DefaultUserListResultsSize, 1, userListResources, "Added", "Desc");
+
+                return new HttpResponseMessage<User>(resource) { StatusCode = HttpStatusCode.OK };
+            }
+            return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
 

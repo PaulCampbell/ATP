@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ATP.Web.Resources
 {
-    public class PagableSortableList<T> : Resource
+    public class PagableSortableList<T>
     {
         public int TotalResults { get; set; }
         public int RestultsPerPage { get; set; }
@@ -14,9 +14,14 @@ namespace ATP.Web.Resources
         public string SortBy { get; set; }
         public string SortDirection { get; set; }
 
+        public List<ResourceLink> Actions { get; set; }
+
+
         public PagableSortableList(int totalResults, int restultsPerPage, int pageNumber, List<T> items, 
             string sortBy, string sortDirection)
         {
+            Actions = new List<ResourceLink>();
+
             TotalResults = totalResults;
             RestultsPerPage = restultsPerPage;
             PageNumber = pageNumber;

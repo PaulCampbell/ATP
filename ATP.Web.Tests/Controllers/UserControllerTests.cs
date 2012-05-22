@@ -45,6 +45,7 @@ namespace ATP.Web.Tests.Controllers
         public void get_valid_user_returns_200()
         {
             var result = _usersController.Get(_userId);
+            _automapper.Map<List<Domain.Models.List>, List<Web.Resources.List>>(Arg.Any<List<Domain.Models.List>>()).ReturnsForAnyArgs(new List<Web.Resources.List>());
 
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
@@ -53,6 +54,8 @@ namespace ATP.Web.Tests.Controllers
         public void get_valid_user_maps_the_user_to_web_model()
         {
             const string userEmail = "abc@d.org";
+            _automapper.Map<List<Domain.Models.List>, List<Web.Resources.List>>(Arg.Any<List<Domain.Models.List>>()).ReturnsForAnyArgs(new List<Web.Resources.List>());
+
             _usersController.Get(_userId);
 
             _automapper.Received().Map<User, Web.Resources.User>(Arg.Is<User>(user => user.Email == userEmail));
@@ -62,10 +65,24 @@ namespace ATP.Web.Tests.Controllers
         public void get_valid_user_returns_model_of_type_WebModelsUser()
         {
             _automapper.Map<User, Web.Resources.User>(Arg.Any<User>()).ReturnsForAnyArgs(new Web.Resources.User());
+            _automapper.Map<List<Domain.Models.List>, List<Web.Resources.List>>(Arg.Any<List<Domain.Models.List>>()).ReturnsForAnyArgs(new List<Web.Resources.List>());
+
             var u = _usersController.Get(_userId);
 
             Assert.IsTrue(u.Content is ObjectContent<Web.Resources.User>);
         }
+
+        [Test]
+        public void get_valid_user_returns_pagable_list_of_list_resources()
+        {
+            _automapper.Map<User, Web.Resources.User>(Arg.Any<User>()).ReturnsForAnyArgs(new Web.Resources.User());
+            _automapper.Map<List<Domain.Models.List>, List<Web.Resources.List>>(Arg.Any<List<Domain.Models.List>>()).ReturnsForAnyArgs(new List<Web.Resources.List>());
+
+            var u = _usersController.Get(_userId);
+
+            _automapper.Received().Map<List<Domain.Models.List>, List<Web.Resources.List>>(Arg.Any<List<Domain.Models.List>>());
+        }
+      
 
         [Test]
         public void get_all_returns_pagable_sortable_list_of_users()

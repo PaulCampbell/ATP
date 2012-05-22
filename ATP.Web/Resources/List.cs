@@ -11,5 +11,10 @@ namespace ATP.Web.Resources
         public string Name { get; set; }
         public string Description { get; set; }
         public PagableSortableList<Place> Places { get; set; }  
+
+        public List():base("/lists")
+        {
+            
+        } 
     }
 }

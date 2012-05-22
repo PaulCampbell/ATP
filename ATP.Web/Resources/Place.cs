@@ -12,5 +12,10 @@ namespace ATP.Web.Resources
         public float Latitude { get; set; }
         public string Description { get; set; }
         public List<String> Pictures { get; set; } 
+
+        public Place():base("/places/")
+        {
+            
+        }
     }
 }

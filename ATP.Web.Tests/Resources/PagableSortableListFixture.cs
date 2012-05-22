@@ -10,13 +10,7 @@ namespace ATP.Web.Tests.Resources
     [TestFixture]
     public class PagableSortableListFixture
     {
-        [Test]
-        public void sut_is_type_of_resource()
-        {
-            var sut = new PagableSortableList<User>(100, 1, 1, new List<User> { new User() }, "", "");
-            Assert.IsTrue(sut is Resource);
-        }
-
+       
         [Test]
         public void list_with_more_results_than_displayed_contains_next_link()
         {

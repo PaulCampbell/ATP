@@ -13,7 +13,9 @@ namespace ATP.Web.Bootstrapper
             AutoMapper.Mapper.CreateMap<Domain.Models.User, User>()
                 .ForMember(u => u.Password, opt => opt.Ignore())
                 .ForMember(u => u.Uri, opt => opt.Ignore())
-                .ForMember(u => u.Actions, opt => opt.Ignore());
+                .ForMember(u => u.Actions, opt => opt.Ignore())
+                .ForMember(u=>u.Lists, opt=>opt.Ignore())
+                .ForMember(u => u.ResourceBaseUrl, opt => opt.Ignore());
                 
 
             AutoMapper.Mapper.CreateMap<User, Domain.Models.User>()
@@ -24,7 +26,8 @@ namespace ATP.Web.Bootstrapper
             AutoMapper.Mapper.CreateMap<Domain.Models.List, List>()
                .ForMember(u => u.Uri, opt => opt.Ignore())
                .ForMember(u => u.Actions, opt => opt.Ignore())
-               .ForMember(l => l.Places, opt => opt.Ignore());
+               .ForMember(l => l.Places, opt => opt.Ignore())
+               .ForMember(u => u.ResourceBaseUrl, opt => opt.Ignore());
 
 
             AutoMapper.Mapper.CreateMap<List, Domain.Models.List>()
@@ -34,7 +37,8 @@ namespace ATP.Web.Bootstrapper
 
             AutoMapper.Mapper.CreateMap<Domain.Models.Place, Place>()
               .ForMember(u => u.Uri, opt => opt.Ignore())
-              .ForMember(u => u.Actions, opt => opt.Ignore());
+              .ForMember(u => u.Actions, opt => opt.Ignore())
+              .ForMember(u => u.ResourceBaseUrl, opt => opt.Ignore());
 
 
             AutoMapper.Mapper.CreateMap<Place, Domain.Models.Place>()
