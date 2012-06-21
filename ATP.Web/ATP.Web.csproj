@@ -126,6 +126,7 @@
       <Private>True</Private>
       <HintPath>..\packages\System.Net.Http.2.0.20126.16343\lib\net40\System.Net.Http.WebRequest.dll</HintPath>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -206,6 +207,7 @@
     <Compile Include="Resources\User.cs" />
     <Compile Include="Validators\AuthenticateValidator.cs" />
     <Compile Include="Validators\BaseValidator.cs" />
+    <Compile Include="Validators\NewPlaceValidator.cs" />
     <Compile Include="Validators\NewUserValidator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validators\ValidationRunner.cs" />

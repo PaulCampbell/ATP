@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace ATP.Web.Resources
 {
+    [DataContract]
     public class Resource
     {
         public string ResourceBaseUrl { get; private set; }
@@ -15,6 +17,7 @@ namespace ATP.Web.Resources
             }
         }
 
+        [DataMember]
         public List<ResourceLink> Actions { get; set; }
 
         public Resource(string resourceBaseUrl)

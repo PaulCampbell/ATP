@@ -10,17 +10,23 @@ namespace ATP.Domain.Models
         public string User { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public List<string> Places { get; set; }
+        public List<string> Places { get; protected set; }
+        public int NumberOfPlaces { get; protected set; }
 
         public List()
         {
             Places = new List<string>();
+            NumberOfPlaces = 0;
         }
 
         public void AddPlace(Place place)
         {
-            if (!Places.Any(p => p == "places/" + place.Id))
-            Places.Add("places/" + place.Id);
+            if (!Places.Any(p => p == "/places/" + place.Id))
+            {
+                Places.Add("/places/" + place.Id);
+                NumberOfPlaces++;
+            }
         }
+
     }
 }

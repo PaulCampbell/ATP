@@ -40,12 +40,15 @@ namespace ATP.Web.Controllers
                 var resource = _automapper.Map<Domain.Models.User, User>(model);
 
                 Raven.Client.Linq.RavenQueryStatistics stats;
+                var userId = "/users/" + model.Id;
 
                 var userListsFirstPage = DocumentSession.Query<Domain.Models.List>().Statistics(out stats)
-                    .Where(x=>x.User == "/users/" + model.Id).OrderByDescending(x=>x.Added)
+                    .Where(x => x.User == userId).OrderByDescending(x => x.Added)
                     .Take(DefaultUserListResultsSize).ToList();
 
                 var userListResources = _automapper.Map < List<Domain.Models.List>, List<List>>(userListsFirstPage);
+
+                if (userListResources== null) userListResources = new List<List>();
 
                 resource.Lists = new PagableSortableList<List>(stats.TotalResults, DefaultUserListResultsSize, 1, userListResources, "Added", "Desc");
 

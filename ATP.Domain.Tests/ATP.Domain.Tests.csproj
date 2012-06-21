@@ -92,8 +92,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuthenticationServiceFixture.cs" />
-    <Compile Include="LiztManagerFixture.cs" />
     <Compile Include="Models\ListFixture.cs" />
+    <Compile Include="Models\PlaceFixture.cs" />
     <Compile Include="Models\UserFixture.cs" />
     <Compile Include="Models\EntityFixture.cs" />
     <Compile Include="Persistence.cs" />

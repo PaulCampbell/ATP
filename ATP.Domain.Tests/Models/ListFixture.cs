@@ -38,6 +38,25 @@ namespace ATP.Domain.Tests
 
             Assert.AreEqual(1, l.Places.Count);
         }
+
+        [Test]
+        public void add_new_place_increments_numberOfPlaces()
+        {
+            var p = new Place { Id = 1 };
+            var p2 = new Place { Id = 2 };
+
+            var sut = GetList();
+
+            sut.AddPlace(p);
+            sut.AddPlace(p2);
+
+            Assert.AreEqual(2, sut.NumberOfPlaces);
+        }
+
+        private List GetList()
+        {
+            return new List();
+        }
     }
    
 }

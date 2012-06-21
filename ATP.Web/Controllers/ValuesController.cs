@@ -22,16 +22,30 @@ namespace ATP.Web.Controllers
         public User Get()
         {
 
-            var user = new User
+            var user = DocumentSession.Load<User>(2);
+            var list = new List();
+            list.User = "/users/2";
+
+           var p = new Place
             {
-                Email = "test@decoratedworld.co.uk",
-                FirstName = "Lola",
-                LastName = "Dog",
-                HashedPassword = "hashedpassword"
+                Description =
+                    "Kinda trendy place - multiple rooms, decent beer from Leeds brewary and guests",
+                Latitude = 52.002324f,
+                Longitude = -0.5734f,
+                Name = "The Adelphi"
+
             };
 
-            DocumentSession.Store(user);
+
+            DocumentSession.Store(p);
             DocumentSession.SaveChanges();
+            list.AddPlace(p);
+            DocumentSession.Store(list);
+            DocumentSession.SaveChanges();
+
+         
+
+
             return user;
         }
 

@@ -116,6 +116,7 @@
     <Compile Include="Resources\UserFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validator\AuthenticateValidatorFixture.cs" />
+    <Compile Include="Validator\NewPlaceValidatorFixture.cs" />
     <Compile Include="Validator\NewUserValidatorFixture.cs" />
     <Compile Include="Validator\ValidationRunnerFixture.cs" />
   </ItemGroup>

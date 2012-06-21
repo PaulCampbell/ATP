@@ -38,5 +38,10 @@ namespace ATP.Web.Controllers
             return new HttpResponseMessage(HttpStatusCode.NotFound);
         }
 
+        //public HttpResponseMessage Places(int listId)
+        //{
+
+        //}
+
     }
 }

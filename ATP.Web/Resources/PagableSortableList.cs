@@ -1,21 +1,32 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Web;
 
 namespace ATP.Web.Resources
 {
-    public class PagableSortableList<T>
+     [DataContract]
+    public class PagableSortableList<T> 
     {
+          [DataMember]
         public int TotalResults { get; set; }
+          [DataMember]
         public int RestultsPerPage { get; set; }
+          [DataMember]
         public int PageNumber { get; set; }
+          [DataMember]
         public List<T> Items { get; set; }
+          [DataMember]
         public string SortBy { get; set; }
+          [DataMember]
         public string SortDirection { get; set; }
 
+          [DataMember]
         public List<ResourceLink> Actions { get; set; }
 
+   
 
         public PagableSortableList(int totalResults, int restultsPerPage, int pageNumber, List<T> items, 
             string sortBy, string sortDirection)
@@ -53,5 +64,7 @@ namespace ATP.Web.Resources
                 });
 
         }
+
+
     }
 }

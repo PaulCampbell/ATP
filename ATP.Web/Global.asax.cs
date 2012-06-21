@@ -38,6 +38,12 @@ namespace ATP.Web
                 routeTemplate: "{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            routes.MapHttpRoute(
+                name: "ListPlaces",
+                routeTemplate: "{controller}/{listId}/{action}/{id}",
+                defaults: new { id = RouteParameter.Optional }
+            );
         }
 
         protected void Application_Start()

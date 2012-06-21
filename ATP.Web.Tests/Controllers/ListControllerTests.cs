@@ -75,6 +75,11 @@ namespace ATP.Web.Tests.Controllers
             Assert.IsTrue(result.Content is ObjectContent<PagableSortableList<Web.Resources.User>>);
         }
 
+        [Test]
+        public void post_valid_place_adds_place_to_list()
+        {
+            var place = DataGenerator.GenerateResourcePlace();
+        }
       
     }
 }

@@ -31,14 +31,27 @@ namespace ATP.PersistenceTests
 
         public static Domain.Models.List GenereateDomainModelList()
         {
-          
-
-            return new Domain.Models.List
+            var l = new Domain.Models.List
             {
                 Name = "Leeds Pubs",
-                Places = new List<string> {"places/1", "places/2"},
                 User = "users/1"
             };
+            l.AddPlace(new Domain.Models.Place { Id = 1 });
+            l.AddPlace(new Domain.Models.Place { Id = 2 });
+
+            return l;
+        }
+
+        public static Place GenerateResourcePlace()
+        {
+            var p = new Place
+            {
+                Latitude = 1.231234F,
+                Longitude = 45.3333F,
+                Name = "El Bareto",
+                Description = "Place description"
+            };
+            return p;
         }
 
     }

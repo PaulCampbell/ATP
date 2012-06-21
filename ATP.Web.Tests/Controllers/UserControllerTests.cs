@@ -44,8 +44,8 @@ namespace ATP.Web.Tests.Controllers
         [Test]
         public void get_valid_user_returns_200()
         {
-            var result = _usersController.Get(_userId);
-            _automapper.Map<List<Domain.Models.List>, List<Web.Resources.List>>(Arg.Any<List<Domain.Models.List>>()).ReturnsForAnyArgs(new List<Web.Resources.List>());
+            _automapper.Map<User, Web.Resources.User>(Arg.Any<User>()).ReturnsForAnyArgs(new Web.Resources.User());
+            var result = _usersController.Get(_userId);  
 
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
         }
@@ -54,8 +54,7 @@ namespace ATP.Web.Tests.Controllers
         public void get_valid_user_maps_the_user_to_web_model()
         {
             const string userEmail = "abc@d.org";
-            _automapper.Map<List<Domain.Models.List>, List<Web.Resources.List>>(Arg.Any<List<Domain.Models.List>>()).ReturnsForAnyArgs(new List<Web.Resources.List>());
-
+            _automapper.Map<User, Web.Resources.User>(Arg.Any<User>()).ReturnsForAnyArgs(new Web.Resources.User());
             _usersController.Get(_userId);
 
             _automapper.Received().Map<User, Web.Resources.User>(Arg.Is<User>(user => user.Email == userEmail));
