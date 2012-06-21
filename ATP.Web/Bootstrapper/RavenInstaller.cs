@@ -4,6 +4,8 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using Raven.Client;
 using Raven.Client.Document;
+using Raven.Client.Indexes;
+using ATP.Web.Infrastructure;
 
 namespace ATP.Web.Bootstrapper
 {
@@ -24,7 +26,7 @@ namespace ATP.Web.Bootstrapper
                 ConnectionStringName = "ATPConnection"
             };
             store.Initialize();
-            
+            IndexCreation.CreateIndexes(typeof(RavenIndexes).Assembly, store);
             return store;
         }
 

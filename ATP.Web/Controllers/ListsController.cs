@@ -48,10 +48,11 @@ namespace ATP.Web.Controllers
                 };
             }
 
-            list.AddPlace(domainPlace);
-            this.DocumentSession.Store(list);
-            this.DocumentSession.Store(domainPlace);
-
+            domainPlace.List = "lists/" + list.Id;
+            DocumentSession.Store(domainPlace);
+            list.AddPlace(domainPlace);              
+            DocumentSession.Store(list);
+            DocumentSession.SaveChanges();
             return new HttpResponseMessage<Resources.Place>(place)
             {
                 StatusCode = HttpStatusCode.Created

@@ -42,7 +42,8 @@ namespace ATP.Web.Bootstrapper
 
 
             AutoMapper.Mapper.CreateMap<Place, Domain.Models.Place>()
-               .ForMember(u => u.Added, opt => opt.Ignore());
+               .ForMember(u => u.Added, opt => opt.Ignore())
+               .ForMember(u => u.List, opt => opt.Ignore());
 
         }
     }

@@ -21,9 +21,9 @@ namespace ATP.Domain.Models
 
         public void AddPlace(Place place)
         {
-            if (!Places.Any(p => p == "/places/" + place.Id))
+            if (!Places.Any(p => p == "places/" + place.Id))
             {
-                Places.Add("/places/" + place.Id);
+                Places.Add("places/" + place.Id);
                 NumberOfPlaces++;
             }
         }

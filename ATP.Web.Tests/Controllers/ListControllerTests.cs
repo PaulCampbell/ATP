@@ -82,14 +82,17 @@ namespace ATP.Web.Tests.Controllers
             var listId = 1;
             var place = DataGenerator.GenerateResourcePlace();
             place.Name = "A New Place";
-            _automapper.Map<Web.Resources.Place, Domain.Models.Place>(place).Returns(DataGenerator.GenerateDomainModelPlace());
+            _automapper.Map<Web.Resources.Place, Domain.Models.Place>(place).Returns(new Domain.Models.Place { Name = "A New Place"});
             _validationRunner.RunValidation(Arg.Any<NewPlaceValidator>(), Arg.Any<Web.Resources.Place>())
            .Returns(new List<Error>());
 
             var response = _listController.PlacesPost(listId, place);
             
             var list = Session.Load<Domain.Models.List>(listId);
-            var newPlace = list.Places.FirstOrDefault(x => x == "A New Place");
+            var listDocUri = "lists/" + listId;
+            var listPlaces = Session.Query<Domain.Models.Place>()
+                .Where(x => x.List == listDocUri).ToList<Domain.Models.Place>();
+            var newPlace = listPlaces.FirstOrDefault(x => x.Name == "A New Place");
 
             Assert.IsNotNull(newPlace);
         }

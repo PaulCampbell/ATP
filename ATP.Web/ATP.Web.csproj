@@ -197,6 +197,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Automapper.cs" />
+    <Compile Include="Infrastructure\RavenIndexes.cs" />
     <Compile Include="Resources\Authenticate.cs" />
     <Compile Include="Resources\List.cs" />
     <Compile Include="Resources\PagableSortableList.cs" />
