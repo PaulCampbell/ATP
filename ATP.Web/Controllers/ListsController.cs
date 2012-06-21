@@ -13,7 +13,7 @@ using Raven.Client;
 
 namespace ATP.Web.Controllers
 {
-    public class ListsController : PagableSortableResourceController<Domain.Models.User, Web.Resources.User>
+    public class ListsController : PagableSortableResourceController<Domain.Models.List, Web.Resources.List>
     {
         private readonly IAutomapper _automapper;
         private readonly IValidationRunner _validationRunner;
@@ -26,22 +26,39 @@ namespace ATP.Web.Controllers
             _validationRunner = validationRunner;
            
         }
-
-        public HttpResponseMessage Get(int id)
+        
+        public HttpResponseMessage PlacesPost(int listId, Resources.Place place)
         {
-            var list = DocumentSession.Load<Domain.Models.List>(id);
-            if (list != null)
+            var list = DocumentSession.Load<Domain.Models.List>(listId);
+            var responseObject = new UnprocessableEntity();
+            if (list == null)
+                return new HttpResponseMessage<UnprocessableEntity>(responseObject)
+                {
+                    StatusCode = HttpStatusCode.NotFound
+                };
+
+            var domainPlace = _automapper.Map<Web.Resources.Place, Domain.Models.Place>(place);
+            var validationErrors = _validationRunner.RunValidation(new NewPlaceValidator(), place);
+            if (validationErrors.Any())
             {
-                var l = _automapper.Map<Domain.Models.List, List>(list);
-                return new HttpResponseMessage<List>(l) { StatusCode = HttpStatusCode.OK };
+                responseObject.AddRange(validationErrors);
+                return new HttpResponseMessage<UnprocessableEntity>(responseObject)
+                {
+                    StatusCode = HttpStatusCode.BadRequest
+                };
             }
-            return new HttpResponseMessage(HttpStatusCode.NotFound);
+
+            list.AddPlace(domainPlace);
+            this.DocumentSession.Store(list);
+            this.DocumentSession.Store(domainPlace);
+
+            return new HttpResponseMessage<Resources.Place>(place)
+            {
+                StatusCode = HttpStatusCode.Created
+            };
         }
 
-        //public HttpResponseMessage Places(int listId)
-        //{
-
-        //}
+       
 
     }
 }

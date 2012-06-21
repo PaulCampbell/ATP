@@ -124,7 +124,7 @@ namespace ATP.Web.Controllers
                 };
             }
             
-            return  new HttpResponseMessage { StatusCode = HttpStatusCode.OK};
+            return  new HttpResponseMessage<Resources.User>(user) { StatusCode = HttpStatusCode.OK};
         } 
     }
 }

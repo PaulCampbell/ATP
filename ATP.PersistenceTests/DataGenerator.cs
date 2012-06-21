@@ -44,7 +44,19 @@ namespace ATP.PersistenceTests
 
         public static Place GenerateResourcePlace()
         {
-            var p = new Place
+            var p = new Web.Resources.Place
+            {
+                Latitude = 1.231234F,
+                Longitude = 45.3333F,
+                Name = "El Bareto",
+                Description = "Place description"
+            };
+            return p;
+        }
+
+        public static Domain.Models.Place GenerateDomainModelPlace()
+        {
+            var p = new Domain.Models.Place
             {
                 Latitude = 1.231234F,
                 Longitude = 45.3333F,

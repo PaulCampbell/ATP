@@ -11,7 +11,7 @@ using Raven.Client;
 
 namespace ATP.Web.Controllers
 {
-    public class PagableSortableResourceController<TModel,TResource> : BaseController
+    public abstract class PagableSortableResourceController<TModel,TResource> : BaseController
     {
         private readonly IAutomapper _automapper;
 

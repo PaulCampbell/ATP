@@ -66,20 +66,90 @@ namespace ATP.Web.Tests.Controllers
         }
 
         [Test]
-        public void get_all_returns_pagable_sortable_list_of_users()
+        public void get_all_returns_pagable_sortable_list_of_lists()
         {
-            _automapper.Map<List<User>, List<Web.Resources.User>>(Arg.Any<List<User>>()).Returns(new List<Web.Resources.User>());
+            _automapper.Map<List<ATP.Domain.Models.List>, List<Web.Resources.List>>(Arg.Any<List<ATP.Domain.Models.List>>())
+                .Returns(new List<Web.Resources.List>());
 
             var result = _listController.Get();
 
-            Assert.IsTrue(result.Content is ObjectContent<PagableSortableList<Web.Resources.User>>);
+            Assert.IsTrue(result.Content is ObjectContent<PagableSortableList<Web.Resources.List>>);
         }
 
         [Test]
-        public void post_valid_place_adds_place_to_list()
+        public void post_valid_place_to_valid_list_adds_place_to_list()
         {
+            var listId = 1;
             var place = DataGenerator.GenerateResourcePlace();
+            place.Name = "A New Place";
+            _automapper.Map<Web.Resources.Place, Domain.Models.Place>(place).Returns(DataGenerator.GenerateDomainModelPlace());
+            _validationRunner.RunValidation(Arg.Any<NewPlaceValidator>(), Arg.Any<Web.Resources.Place>())
+           .Returns(new List<Error>());
+
+            var response = _listController.PlacesPost(listId, place);
+            
+            var list = Session.Load<Domain.Models.List>(listId);
+            var newPlace = list.Places.FirstOrDefault(x => x == "A New Place");
+
+            Assert.IsNotNull(newPlace);
         }
+
+        [Test]
+        public void post_invalid_place_to_valid_list_return_400()
+        {
+            var listId = 1;
+            var list = Session.Load<Domain.Models.List>(listId);
+            var place = DataGenerator.GenerateResourcePlace();
+            place.Name = string.Empty;
+            _automapper.Map<Web.Resources.Place, Domain.Models.Place>(place).Returns(DataGenerator.GenerateDomainModelPlace());
+            _validationRunner.RunValidation(Arg.Any<NewPlaceValidator>(), Arg.Any<Web.Resources.Place>())
+                .Returns(new List<Error>
+                            {
+                                new Error {Code = ErrorCode.MissingField, Field = "Name"}
+                            }
+                         );
+            var response = _listController.PlacesPost(listId, place);
+
+            Assert.AreEqual(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Test]
+        public void post_valid_place_to_valid_list_returns_201()
+        {
+            var listId = 1;
+            var place = DataGenerator.GenerateResourcePlace();
+            _automapper.Map<Web.Resources.Place, Domain.Models.Place>(place).Returns(DataGenerator.GenerateDomainModelPlace());
+            _validationRunner.RunValidation(Arg.Any<NewPlaceValidator>(), Arg.Any<Web.Resources.Place>())
+                .Returns(new List<Error>());
+
+            var response = _listController.PlacesPost(listId, place);
+
+            Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
+        }
+
+        [Test]
+        public void put_invalid_place_to_valid_list_correct_errors()
+        {
+            var listId = 1;
+            var place = DataGenerator.GenerateResourcePlace();
+            place.Name = String.Empty;
+            _validationRunner.RunValidation(Arg.Any<IValidator>(), Arg.Any<Resource>()).Returns(new List<Error>() { new Error { Code = ErrorCode.MissingField, Field = "Email", Message = "Email missing" } });
+            var result = _listController.PlacesPost(listId, place);
+
+            Assert.IsTrue(result.Content is ObjectContent<UnprocessableEntity>);
+
+        }
+
+        [Test]
+        public void post_place_tononexistent_place_returns_404()
+        {
+            var listId = 900;
+            var place = DataGenerator.GenerateResourcePlace();
+            var response = _listController.PlacesPost(listId, place);
+
+            Assert.AreEqual(HttpStatusCode.NotFound, response.StatusCode);
+        }
+
       
     }
 }

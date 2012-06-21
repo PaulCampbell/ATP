@@ -40,11 +40,13 @@ namespace ATP.Web
             );
 
             routes.MapHttpRoute(
-                name: "ListPlaces",
-                routeTemplate: "{controller}/{listId}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional }
+                name: "ListPlacesPost",
+                routeTemplate: "lists/{listId}/places/{id}",
+                defaults: new { listId = 0, controller = "Lists", action = "PlacesPost" },
+                 constraints: new { httpMethod = new HttpMethodConstraint("POST") }
             );
         }
+            
 
         protected void Application_Start()
         {
